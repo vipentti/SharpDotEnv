@@ -17,6 +17,10 @@
           "type": "boolean",
           "description": "Indicates to continue a previously failed build attempt"
         },
+        "ForceReproducible": {
+          "type": "boolean",
+          "description": "Reproducible build"
+        },
         "GitHubRegistryApiKey": {
           "type": "string",
           "description": "",
@@ -86,10 +90,6 @@
         "RemoteName": {
           "type": "string",
           "description": "Name of the remote - Default is 'origin'"
-        },
-        "Reproducible": {
-          "type": "boolean",
-          "description": "Reproducible build"
         },
         "Root": {
           "type": "string",

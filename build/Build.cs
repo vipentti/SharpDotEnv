@@ -52,7 +52,7 @@ partial class Build : NukeBuild
     [Parameter("")][Secret] readonly string PublicNuGetApiKey = null!;
     [Parameter("")][Secret] readonly string GitHubRegistryApiKey = null!;
 
-    [Parameter("Reproducible build")] readonly bool Reproducible = false;
+    [Parameter("Reproducible build")] readonly bool ForceReproducible;
 
     GitVersion GitVersion => From<IHazGitVersion>().Versioning;
     GitRepository GitRepository => From<IHazGitRepository>().GitRepository;
@@ -111,10 +111,6 @@ partial class Build : NukeBuild
     IEnumerable<(Project Project, string Framework)> ICompile.PublishConfigurations => PublishConfigurations;
 
     public IEnumerable<Project> TestProjects => Solution.GetAllProjects("*Tests*");
-
-    Configure<DotNetRestoreSettings> IRestore.RestoreSettings => _ => _
-        .AddProperty("UseReproducibleBuild", Reproducible.ToString().ToLowerInvariant())
-        ;
 
     Target ValidateFormat => _ => _
         .AssuredAfterFailure()
@@ -176,22 +172,28 @@ partial class Build : NukeBuild
                 .AddPair("Packages", PackagesDirectory.GlobFiles("*.nupkg").Count.ToString()));
         });
 
+    string UseReproducibleBuild => ForceReproducible || IsServerBuild ? "true" : "false";
+
+    Configure<DotNetRestoreSettings> IRestore.RestoreSettings => _ => _
+        .AddProperty("UseReproducibleBuild", UseReproducibleBuild)
+        ;
+
     Configure<DotNetBuildSettings> ICompile.CompileSettings => _ => _
         .AddProperty("RepositoryCommit", GitRepository.Commit)
         .AddProperty("RepositoryBranch", GitRepository.Branch)
-        .AddProperty("UseReproducibleBuild", Reproducible.ToString().ToLowerInvariant())
+        .AddProperty("UseReproducibleBuild", UseReproducibleBuild)
         ;
 
     Configure<DotNetPublishSettings> ICompile.PublishSettings => _ => _
         .AddProperty("RepositoryCommit", GitRepository.Commit)
         .AddProperty("RepositoryBranch", GitRepository.Branch)
-        .AddProperty("UseReproducibleBuild", Reproducible.ToString().ToLowerInvariant())
+        .AddProperty("UseReproducibleBuild", UseReproducibleBuild)
         ;
 
     Configure<DotNetPackSettings> IPack.PackSettings => _ => _
         .AddProperty("RepositoryCommit", GitRepository.Commit)
         .AddProperty("RepositoryBranch", GitRepository.Branch)
-        .AddProperty("UseReproducibleBuild", Reproducible.ToString().ToLowerInvariant())
+        .AddProperty("UseReproducibleBuild", UseReproducibleBuild)
         ;
 
     string ICreateGitHubRelease.Name => MajorMinorPatchVersion;
