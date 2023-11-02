@@ -88,11 +88,16 @@ namespace SharpDotEnv.Internal
                 throw new DotEnvParseException(Strings.FormatError_InvalidValue(key, valueToken));
             }
 
-            var value = valueToken.Value;
+            // Normalize line endings
+            var value = valueToken.Value
+                .Replace("\r\n", "\n")
+                .Replace("\r", "\n");
 
             if (valueToken.Type == TokenType.DoubleQuoteValue)
             {
-                value = value.Replace("\\n", "\n");
+                value = value
+                    .Replace("\\n", "\n")
+                    .Replace("\\r", "\r");
             }
 
             variables[key] = value;

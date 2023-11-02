@@ -72,6 +72,6 @@ public class DotEnvConfigurationProviderTests
         this is a value
         on multiple
         lines
-        """);
+        """.Replace("\r\n", "\n"));
     }
 }
