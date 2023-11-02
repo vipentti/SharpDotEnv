@@ -5,7 +5,9 @@ using System.IO;
 
 namespace Microsoft.Extensions.Configuration
 {
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 #nullable disable
+#endif
     /// <summary>
     /// Extension methods for adding <see cref="DotEnvConfigurationProvider"/>.
     /// </summary>
@@ -160,5 +162,8 @@ namespace Microsoft.Extensions.Configuration
             });
         }
     }
+
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
 #nullable restore
+#endif
 }
