@@ -43,11 +43,13 @@ jobs:
         run: ./build.cmd Test ValidateFormat Pack
       - name: 'Publish: test-results'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: test-results
           path: artifacts/test-results
       - name: 'Publish: packages'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: packages
           path: artifacts/packages
@@ -69,11 +71,13 @@ jobs:
         run: ./build.cmd Test ValidateFormat Pack
       - name: 'Publish: test-results'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: test-results
           path: artifacts/test-results
       - name: 'Publish: packages'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: packages
           path: artifacts/packages
@@ -95,11 +99,13 @@ jobs:
         run: ./build.cmd Test ValidateFormat Pack
       - name: 'Publish: test-results'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: test-results
           path: artifacts/test-results
       - name: 'Publish: packages'
         uses: actions/upload-artifact@v3
+        if: ${{ runner.os == 'Windows' }}
         with:
           name: packages
           path: artifacts/packages

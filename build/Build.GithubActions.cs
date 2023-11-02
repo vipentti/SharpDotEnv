@@ -39,6 +39,7 @@ using System.Collections.Generic;
     OnPushBranches = new[] { MainBranch },
     OnPushTags = new[] { "*.*.*" },
     PublishArtifacts = true,
+    PublishCondition = "${{ runner.os == 'Windows' }}",
     EmptyWorkflowTrigger = true,
     FetchDepth = 0, // fetch full history
     InvokedTargets = new[] { nameof(ITest.Test), nameof(ValidateFormat), nameof(IPack.Pack) }
