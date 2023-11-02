@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Features>strict</Features>
+    </PropertyGroup>
+
+    <!-- Build -->
+    <PropertyGroup>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+         <!-- Enable linter -->
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <WarnOnPackingNonPackableProject>true</WarnOnPackingNonPackableProject>
+    </PropertyGroup>
+
+    <!-- Packaging -->
+    <PropertyGroup>
+        <!-- Enable packaging on a per-project basis. -->
+        <IsPackable>false</IsPackable>
+        <IsPublishable>false</IsPublishable>
+
+        <Authors>Ville Penttinen</Authors>
+        <Copyright>Copyright © 2023 Ville Penttinen</Copyright>
+        <PackageProjectUrl>https://github.com/vipentti/SharpDotEnv</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/vipentti/SharpDotEnv</RepositoryUrl>
+
+        <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+        <!-- Optional: Embed source files that are not tracked by the source control manager in the PDB -->
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+        <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+</Project>
