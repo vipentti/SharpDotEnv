@@ -1,9 +1,8 @@
-![icon](./icon.png)
+![icon](https://raw.githubusercontent.com/vipentti/SharpDotEnv/main/icon.png)
 
 # SharpDotEnv
 
-
-SharpDotEnv is a C# library designed to read and load `.env` files into the application environment/configuration.
+SharpDotEnv is a C# library designed to support reading and loading `.env` files into the application environment.
 
 ## Features
 

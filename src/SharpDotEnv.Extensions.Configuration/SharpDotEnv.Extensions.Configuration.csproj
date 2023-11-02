@@ -4,7 +4,7 @@
     <AssemblyName>SharpDotEnv.Extensions.Configuration</AssemblyName>
     <RootNamespace>SharpDotEnv.Extensions.Configuration</RootNamespace>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
-    <Description>Support reading .env files into ConfigurationBuilder</Description>
+    <Description>Provide support for adding .env files as configuration sources</Description>
     <PackageTags>dotnet;dotenv;env;configuration</PackageTags>
     <IsPackable>true</IsPackable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
