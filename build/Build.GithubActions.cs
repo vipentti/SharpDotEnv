@@ -10,6 +10,7 @@ using System.Collections.Generic;
     OnPushBranchesIgnore = new[] { MainBranch },
     OnPullRequestBranches = new[] { MainBranch },
     PublishArtifacts = false,
+    FetchDepth = 0, // fetch full history
     InvokedTargets = new[] { nameof(ITest.Test), nameof(ValidateFormat) }
     )]
 [GitHubActions(
@@ -18,6 +19,7 @@ using System.Collections.Generic;
     OnPushBranchesIgnore = new[] { MainBranch },
     OnPullRequestBranches = new[] { MainBranch },
     PublishArtifacts = false,
+    FetchDepth = 0, // fetch full history
     InvokedTargets = new[] { nameof(ITest.Test), nameof(ValidateFormat) }
     )]
 [GitHubActions(
@@ -26,6 +28,7 @@ using System.Collections.Generic;
     OnPushBranchesIgnore = new[] { MainBranch },
     OnPullRequestBranches = new[] { MainBranch },
     PublishArtifacts = false,
+    FetchDepth = 0, // fetch full history
     InvokedTargets = new[] { nameof(ITest.Test), nameof(ValidateFormat) }
     )]
 [CustomGithubActions(
@@ -37,6 +40,7 @@ using System.Collections.Generic;
     OnPushTags = new[] { "*.*.*" },
     PublishArtifacts = true,
     EmptyWorkflowTrigger = true,
+    FetchDepth = 0, // fetch full history
     InvokedTargets = new[] { nameof(ITest.Test), nameof(ValidateFormat), nameof(IPack.Pack) }
     )]
 public partial class Build
