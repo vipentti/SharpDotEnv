@@ -6,6 +6,9 @@
     "build": {
       "type": "object",
       "properties": {
+        "CleanPackagesDirectory": {
+          "type": "boolean"
+        },
         "Configuration": {
           "type": "string",
           "enum": [
@@ -19,20 +22,10 @@
         },
         "ForceReproducible": {
           "type": "boolean",
-          "description": "Reproducible build"
+          "description": "Force UseReproducible to be set"
         },
-        "GitHubRegistryApiKey": {
-          "type": "string",
-          "description": "",
-          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
-        },
-        "GitHubReleaseGitHubToken": {
-          "type": "string",
-          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
-        },
-        "GitHubRepositoryOwner": {
-          "type": "string",
-          "description": "Owner of the repository"
+        "GitRemoteName": {
+          "type": "string"
         },
         "Help": {
           "type": "boolean",
@@ -67,6 +60,17 @@
           "type": "boolean",
           "description": "Disables displaying the NUKE logo"
         },
+        "NuGetApiKey": {
+          "type": "string",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
+        "NuGetSource": {
+          "type": "string"
+        },
+        "PackageOwner": {
+          "type": "string",
+          "description": "Owner of the package(s)"
+        },
         "Partition": {
           "type": "string",
           "description": "Partition to use on CI"
@@ -82,15 +86,6 @@
             "type": "string"
           }
         },
-        "PublicNuGetApiKey": {
-          "type": "string",
-          "description": "",
-          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
-        },
-        "RemoteName": {
-          "type": "string",
-          "description": "Name of the remote - Default is 'origin'"
-        },
         "Root": {
           "type": "string",
           "description": "Root directory during build execution"
@@ -101,18 +96,21 @@
           "items": {
             "type": "string",
             "enum": [
-              "Changelog",
-              "Clean",
-              "CleanPackages",
-              "CleanTestResults",
+              "CheckCsharpier",
               "Compile",
-              "CreateGitHubRelease",
-              "CreateRelease",
+              "FinalizeRelease",
+              "FinishChangelog",
+              "Format",
+              "FormatCsharpier",
+              "InstallCsharpier",
+              "InstallLinters",
+              "Lint",
               "Pack",
               "Publish",
               "Restore",
               "Test",
-              "ValidateFormat"
+              "ValidateFormat",
+              "ValidatePackages"
             ]
           }
         },
@@ -126,18 +124,21 @@
           "items": {
             "type": "string",
             "enum": [
-              "Changelog",
-              "Clean",
-              "CleanPackages",
-              "CleanTestResults",
+              "CheckCsharpier",
               "Compile",
-              "CreateGitHubRelease",
-              "CreateRelease",
+              "FinalizeRelease",
+              "FinishChangelog",
+              "Format",
+              "FormatCsharpier",
+              "InstallCsharpier",
+              "InstallLinters",
+              "Lint",
               "Pack",
               "Publish",
               "Restore",
               "Test",
-              "ValidateFormat"
+              "ValidateFormat",
+              "ValidatePackages"
             ]
           }
         },
