@@ -5,9 +5,6 @@ using System.IO;
 
 namespace Microsoft.Extensions.Configuration
 {
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-#nullable disable
-#endif
     /// <summary>
     /// Extension methods for adding <see cref="DotEnvConfigurationProvider"/>.
     /// </summary>
@@ -53,7 +50,7 @@ namespace Microsoft.Extensions.Configuration
         /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
         /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string prefix) =>
+        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix) =>
             builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: false, reloadOnChange: false);
 
         /// <summary>
@@ -65,7 +62,7 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
         /// <param name="optional">Whether the file is optional.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string prefix, bool optional) =>
+        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix, bool optional) =>
             builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: optional, reloadOnChange: false);
 
         /// <summary>
@@ -78,7 +75,7 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="optional">Whether the file is optional.</param>
         /// <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string prefix, bool optional, bool reloadOnChange) =>
+        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix, bool optional, bool reloadOnChange) =>
             builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: optional, reloadOnChange: reloadOnChange);
 
         /// <summary>
@@ -96,9 +93,9 @@ namespace Microsoft.Extensions.Configuration
         /// <exception cref="ArgumentException"></exception>
         public static IConfigurationBuilder AddDotEnvFile(
             this IConfigurationBuilder builder,
-            IFileProvider provider,
+            IFileProvider? provider,
             string path,
-            string prefix,
+            string? prefix,
             bool optional,
             bool reloadOnChange)
         {
@@ -148,7 +145,7 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="stream">The <see cref="Stream"/> to read the dotenv configuration data from.</param>
         /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvStream(this IConfigurationBuilder builder, Stream stream, string prefix)
+        public static IConfigurationBuilder AddDotEnvStream(this IConfigurationBuilder builder, Stream stream, string? prefix)
         {
             if (builder == null)
             {
@@ -163,7 +160,4 @@ namespace Microsoft.Extensions.Configuration
         }
     }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-#nullable restore
-#endif
 }

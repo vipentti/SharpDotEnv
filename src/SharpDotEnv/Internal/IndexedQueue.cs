@@ -50,11 +50,7 @@ namespace SharpDotEnv.Internal
                 return true;
             }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             item = default!;
-#else
-            item = default;
-#endif
             return false;
         }
 
@@ -73,11 +69,7 @@ namespace SharpDotEnv.Internal
                 return true;
             }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             item = default!;
-#else
-            item = default;
-#endif
             return false;
         }
 
@@ -166,11 +158,7 @@ namespace SharpDotEnv.Internal
             {
                 _index = -1;
                 _queue = queue;
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
                 Current = default!;
-#else
-                Current = default;
-#endif
             }
 
             public void Reset()
@@ -180,11 +168,7 @@ namespace SharpDotEnv.Internal
 
             public T Current { get; private set; }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             readonly object IEnumerator.Current => Current!;
-#else
-            object IEnumerator.Current => Current;
-#endif
 
             public bool MoveNext()
             {
@@ -201,11 +185,7 @@ namespace SharpDotEnv.Internal
                 return false;
             }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             public readonly void Dispose()
-#else
-            public void Dispose()
-#endif
             {
             }
         }

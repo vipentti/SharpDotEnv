@@ -31,11 +31,7 @@ namespace SharpDotEnv
         /// <param name="filePath">Path to the file</param>
         /// <param name="encoding">Encoding to use when parsing the file. Default is UTF8</param>
         /// <returns>Parsed environment variables</returns>
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public static DotEnv ParseFile(string filePath, Encoding? encoding)
-#else
-        public static DotEnv ParseFile(string filePath, Encoding encoding)
-#endif
         {
             return Parser.ParseEnvironment(File.ReadAllText(filePath, encoding ?? Encoding.UTF8));
         }

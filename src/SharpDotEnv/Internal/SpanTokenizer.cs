@@ -35,7 +35,7 @@
 
         public readonly char Current => Peek();
 
-        public readonly bool IsDone => !(_position < _input.Length);
+        public readonly bool IsDone => _position >= _input.Length;
 
         public bool MoveNext(out SpanToken token)
         {

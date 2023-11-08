@@ -40,14 +40,7 @@ namespace SharpDotEnv.Extensions.Configuration
         /// </summary>
         /// <param name="source">The source settings.</param>
         /// <param name="prefix">A prefix used to filter the environment variables in the dotenv file.</param>
-        public DotEnvConfigurationProvider(
-            FileConfigurationSource source,
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-            string? prefix
-#else
-            string prefix
-#endif
-            )
+        public DotEnvConfigurationProvider(FileConfigurationSource source, string? prefix)
             : base(source)
         {
             _prefix = prefix ?? string.Empty;

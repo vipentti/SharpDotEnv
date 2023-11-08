@@ -30,7 +30,6 @@ namespace SharpDotEnv.Internal
         public TokenType Type { get; }
         public string Value { get; }
         public override string ToString() => $"{Type}='{Value}'";
-
     }
 #endif
 
