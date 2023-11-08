@@ -8,7 +8,7 @@ namespace SharpDotEnv.Tests
 {
     public class SpanTokenizerTests
     {
-        [SpanTokenTheory]
+        [Theory]
         [MemberData(nameof(TokenTestCases.WithCommentsAndWhitespace), MemberType = typeof(TokenTestCases))]
         public void Should_return_expected_tokens(string input, TestToken[] expectedTokens)
         {
@@ -22,7 +22,7 @@ namespace SharpDotEnv.Tests
             readTokens.Should().BeEquivalentTo(expectedTokens);
         }
 
-        [SpanTokenFact]
+        [Fact]
         public void Sample_test()
         {
             var tokenizer = new SpanTokenizer(@"
@@ -44,7 +44,7 @@ namespace SharpDotEnv.Tests
             });
         }
 
-        [SpanTokenFact]
+        [Fact]
         public void Skip_comments_and_whitespace()
         {
             var tokenizer = new SpanTokenizer(@"
@@ -73,7 +73,7 @@ namespace SharpDotEnv.Tests
         }
 
 
-        [SpanTokenFact]
+        [Fact]
         public void Can_tokenize()
         {
             var tokenizer = new SpanTokenizer(@"

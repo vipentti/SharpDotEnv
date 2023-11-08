@@ -32,11 +32,9 @@
         public static bool IsWhitespace(this StreamToken tok) => tok.Type.IsWhitespace();
         public static bool IsComment(this StreamToken tok) => tok.Type == TokenType.Comment;
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public static bool IsEof(this SpanToken tok) => tok.Type.IsEof();
         public static bool IsValue(this SpanToken tok) => tok.Type.IsValue();
         public static bool IsWhitespace(this SpanToken tok) => tok.Type.IsWhitespace();
         public static bool IsComment(this SpanToken tok) => tok.Type == TokenType.Comment;
-#endif
     }
 }

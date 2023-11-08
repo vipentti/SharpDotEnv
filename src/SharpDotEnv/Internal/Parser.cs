@@ -6,24 +6,10 @@ namespace SharpDotEnv.Internal
 {
     internal static class Parser
     {
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-        internal static readonly bool SupportSpanTokens = true;
-#else
-        internal static readonly bool SupportSpanTokens = false;
-#endif
-
         public static DotEnv ParseEnvironment(string input)
         {
             var variables = new DotEnv();
-
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             ParseEnvironment(variables, input);
-#else
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
-            {
-                ParseEnvironment(variables, stream, Encoding.UTF8);
-            }
-#endif
             return variables;
         }
 
@@ -34,7 +20,6 @@ namespace SharpDotEnv.Internal
             return variables;
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         private static void ParseEnvironment(DotEnv variables, string input)
         {
             var tokenizer = new SpanTokenizer(input, skipComments: true, skipWhitespace: true);
@@ -45,7 +30,6 @@ namespace SharpDotEnv.Internal
                 AddToEnvironment(variables, keyToken.ToStreamToken(), valueToken.ToStreamToken());
             }
         }
-#endif
 
         private static void ParseEnvironment(DotEnv variables, Stream input, Encoding? encoding = default)
         {

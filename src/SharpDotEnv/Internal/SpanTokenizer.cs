@@ -1,6 +1,5 @@
 ﻿namespace SharpDotEnv.Internal
 {
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
     using System;
     using System.Diagnostics;
     using static SharpDotEnv.Internal.TokenizerUtils;
@@ -16,6 +15,14 @@
         private int _start;
         private readonly bool _skipComments;
         private readonly bool _skipWhitespace;
+
+        public SpanTokenizer(
+            string input,
+            bool skipComments = false,
+            bool skipWhitespace = false)
+            : this(input.AsSpan(), skipComments, skipWhitespace)
+        {
+        }
 
         public SpanTokenizer(
             ReadOnlySpan<char> input,
@@ -230,7 +237,7 @@
 
         private SpanToken Emit(TokenType type)
         {
-            var token = new SpanToken(type, _input[_start.._position]);
+            var token = new SpanToken(type, _input.Slice(_start, _position - _start));
             ResetStart();
             return token;
         }
@@ -278,22 +285,5 @@
             Debug.Assert(_steps < 1_000_000, $"Parser seems stuck at '{Current}'");
         }
     }
-#else
-    // No-op implementation to ensure tests compile
-    internal struct SpanTokenizer
-    {
-        public SpanTokenizer(
-            string input,
-            bool skipComments = false,
-            bool skipWhitespace = false)
-        {
-        }
-
-        public bool MoveNext(out StreamToken token)
-        {
-            token = default;
-            return false;
-        }
-    }
-#endif
 }
+
