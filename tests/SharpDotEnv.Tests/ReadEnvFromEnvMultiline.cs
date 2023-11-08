@@ -1,14 +1,20 @@
-﻿using FluentAssertions;
-using System.IO;
+﻿using System.IO;
 using System.Text;
+using FluentAssertions;
 using Xunit;
 
 namespace SharpDotEnv.Tests
 {
     public class ReadEnvFromEnvMultiline
     {
-        private readonly DotEnv fileEnv = DotEnv.ParseFile(Path.Combine(Directory.GetCurrentDirectory(), ".env-multiline"), Encoding.UTF8);
-        private readonly DotEnv streamEnv = DotEnv.Parse(File.OpenRead(Path.Combine(Directory.GetCurrentDirectory(), ".env-multiline")), Encoding.UTF8);
+        private readonly DotEnv fileEnv = DotEnv.ParseFile(
+            Path.Combine(Directory.GetCurrentDirectory(), ".env-multiline"),
+            Encoding.UTF8
+        );
+        private readonly DotEnv streamEnv = DotEnv.Parse(
+            File.OpenRead(Path.Combine(Directory.GetCurrentDirectory(), ".env-multiline")),
+            Encoding.UTF8
+        );
 
         [Theory]
         [InlineData("BASIC", "basic")]

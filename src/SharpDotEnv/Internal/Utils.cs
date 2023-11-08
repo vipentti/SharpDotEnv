@@ -7,7 +7,11 @@ namespace SharpDotEnv.Internal
 {
     internal static class Utils
     {
-        public static string GetEnvFilePath(string envFilePath, int levelsToSearch, bool ignoreExceptions)
+        public static string GetEnvFilePath(
+            string envFilePath,
+            int levelsToSearch,
+            bool ignoreExceptions
+        )
         {
             // Absolute paths should be returned as is.
             if (Path.IsPathRooted(envFilePath))
@@ -38,8 +42,10 @@ namespace SharpDotEnv.Internal
 
             if (!ignoreExceptions)
             {
-                throw new FileNotFoundException($"Env file: '{envFilePath}' not found in:" +
-                    $"{Environment.NewLine}  {string.Join(Environment.NewLine + "  ", searchedDirectories)}");
+                throw new FileNotFoundException(
+                    $"Env file: '{envFilePath}' not found in:"
+                        + $"{Environment.NewLine}  {string.Join(Environment.NewLine + "  ", searchedDirectories)}"
+                );
             }
 
             return "";
@@ -59,7 +65,8 @@ namespace SharpDotEnv.Internal
                 for (; cwd != null && count > 0; count--, cwd = cwd.Parent)
                 {
                     searchedDirectories.Add(cwd.FullName);
-                    var envFile = cwd.GetFiles(envFileName, SearchOption.TopDirectoryOnly).FirstOrDefault();
+                    var envFile = cwd.GetFiles(envFileName, SearchOption.TopDirectoryOnly)
+                        .FirstOrDefault();
 
                     if (envFile != null)
                     {

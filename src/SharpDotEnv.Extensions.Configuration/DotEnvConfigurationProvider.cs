@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IO;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace SharpDotEnv.Extensions.Configuration
 {
@@ -27,8 +27,7 @@ namespace SharpDotEnv.Extensions.Configuration
         {
             _prefix = string.Empty;
             _normalizedPrefix = string.Empty;
-            if (source is DotEnvConfigurationSource src
-                && src.Prefix != null)
+            if (source is DotEnvConfigurationSource src && src.Prefix != null)
             {
                 _prefix = src.Prefix;
                 _normalizedPrefix = DotEnvKeyNormalizer.Normalize(_prefix);

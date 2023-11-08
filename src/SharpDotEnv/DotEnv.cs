@@ -1,9 +1,9 @@
-﻿using SharpDotEnv.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
+using SharpDotEnv.Internal;
 
 namespace SharpDotEnv
 {
@@ -22,8 +22,7 @@ namespace SharpDotEnv
         /// </summary>
         /// <param name="filePath">Path to the file</param>
         /// <returns>Parsed environment variables</returns>
-        public static DotEnv ParseFile(string filePath) =>
-            ParseFile(filePath, null);
+        public static DotEnv ParseFile(string filePath) => ParseFile(filePath, null);
 
         /// <summary>
         /// Parse environment variables from a file with the given encoding
@@ -139,39 +138,33 @@ namespace SharpDotEnv
         /// <summary>
         /// Initializes a new instance that is empty.
         /// </summary>
-        public DotEnv()
-        {
-        }
+        public DotEnv() { }
 
         /// <summary>
         /// Initializes a new instance copying values from the <paramref name="dictionary"/>
         /// </summary>
         /// <param name="dictionary">The dictionary to copy values from</param>
-        public DotEnv(IDictionary<string, string> dictionary) : base(dictionary)
-        {
-        }
+        public DotEnv(IDictionary<string, string> dictionary)
+            : base(dictionary) { }
 
         /// <summary>
         /// Initialize a new instance with the specified capacity
         /// </summary>
         /// <param name="capacity">Initial capacity</param>
-        public DotEnv(int capacity) : base(capacity)
-        {
-        }
+        public DotEnv(int capacity)
+            : base(capacity) { }
 
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         /// <summary>
         /// Initializes a new instance copying values from the <paramref name="collection"/>
         /// </summary>
         /// <param name="collection">The collection to copy values from</param>
-        public DotEnv(IEnumerable<KeyValuePair<string, string>> collection) : base(collection)
-        {
-        }
+        public DotEnv(IEnumerable<KeyValuePair<string, string>> collection)
+            : base(collection) { }
 #endif
 
         /// <inheritdoc />
-        protected DotEnv(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
+        protected DotEnv(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
     }
 }
