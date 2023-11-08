@@ -4,14 +4,14 @@ namespace SharpDotEnv.Tests
 {
     public readonly struct TestToken
     {
-        public TestToken(TokenType type, string value)
+        internal TestToken(TokenType type, string value)
         {
             Type = type;
             Value = value;
         }
 
-        public TokenType Type { get; }
-        public string Value { get; }
+        internal TokenType Type { get; }
+        internal string Value { get; }
 
         public override string ToString() => $"{Type}='{Value}'";
 
