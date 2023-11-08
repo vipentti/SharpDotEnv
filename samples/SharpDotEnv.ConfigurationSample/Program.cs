@@ -8,7 +8,7 @@ var settings = config.GetSection("ExampleSettings").Get<Sample.ExampleSettings>(
 
 Console.WriteLine("value: {0}, equals: {1}",
     config["EXAMPLE_VALUE"],
-    config["EXAMPLE_VALUE"] == "this is a nested value");
+    config["EXAMPLE_VALUE"] == "this is only a test");
 
 Console.WriteLine("value: {0}, equals: {1}",
     config["ExampleSettings:Nested:Value"],
