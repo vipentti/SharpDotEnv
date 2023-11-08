@@ -1,6 +1,6 @@
-﻿using SharpDotEnv.Exceptions;
-using System.IO;
+﻿using System.IO;
 using System.Text;
+using SharpDotEnv.Exceptions;
 
 namespace SharpDotEnv.Internal
 {
@@ -31,11 +31,19 @@ namespace SharpDotEnv.Internal
             }
         }
 
-        private static void ParseEnvironment(DotEnv variables, Stream input, Encoding? encoding = default)
+        private static void ParseEnvironment(
+            DotEnv variables,
+            Stream input,
+            Encoding? encoding = default
+        )
         {
             using (var streamReader = new StreamReader(input, encoding ?? Encoding.UTF8))
             {
-                var tokenizer = new StreamTokenizer(streamReader, skipComments: true, skipWhitespace: true);
+                var tokenizer = new StreamTokenizer(
+                    streamReader,
+                    skipComments: true,
+                    skipWhitespace: true
+                );
 
                 while (tokenizer.MoveNext(out var keyToken))
                 {
@@ -45,7 +53,11 @@ namespace SharpDotEnv.Internal
             }
         }
 
-        private static void AddToEnvironment(DotEnv variables, StreamToken keyToken, StreamToken valueToken)
+        private static void AddToEnvironment(
+            DotEnv variables,
+            StreamToken keyToken,
+            StreamToken valueToken
+        )
         {
             if (keyToken.Type != TokenType.Key)
             {
@@ -65,15 +77,11 @@ namespace SharpDotEnv.Internal
             }
 
             // Normalize line endings
-            var value = valueToken.Value
-                .Replace("\r\n", "\n")
-                .Replace("\r", "\n");
+            var value = valueToken.Value.Replace("\r\n", "\n").Replace("\r", "\n");
 
             if (valueToken.Type == TokenType.DoubleQuoteValue)
             {
-                value = value
-                    .Replace("\\n", "\n")
-                    .Replace("\\r", "\r");
+                value = value.Replace("\\n", "\n").Replace("\\r", "\r");
             }
 
             variables[key] = value;

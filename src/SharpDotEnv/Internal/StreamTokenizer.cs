@@ -22,7 +22,8 @@ namespace SharpDotEnv.Internal
         public StreamTokenizer(
             StreamReader stream,
             bool skipComments = false,
-            bool skipWhitespace = false)
+            bool skipWhitespace = false
+        )
         {
             _currentValueBuilder = new StringBuilder();
             _buffer = new IndexedQueue<char>();
@@ -118,7 +119,9 @@ namespace SharpDotEnv.Internal
                 case NullChar:
                     break;
                 default:
-                    throw new NotImplementedException($"Char: '{Peek()}' at {_line}:{_column} {_position}");
+                    throw new NotImplementedException(
+                        $"Char: '{Peek()}' at {_line}:{_column} {_position}"
+                    );
             }
 
             return token.Type != TokenType.Eof;
@@ -258,7 +261,10 @@ namespace SharpDotEnv.Internal
 
         private void EatAssert(char ch)
         {
-            Debug.Assert(IsAt(ch), $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'");
+            Debug.Assert(
+                IsAt(ch),
+                $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'"
+            );
             Bump();
         }
 
@@ -302,5 +308,4 @@ namespace SharpDotEnv.Internal
             return Current == ch;
         }
     }
-
 }

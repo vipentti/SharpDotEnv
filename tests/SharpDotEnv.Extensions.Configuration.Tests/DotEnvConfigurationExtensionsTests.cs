@@ -1,8 +1,7 @@
-﻿
+﻿using System;
+using System.IO;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
 using Xunit;
 
 namespace SharpDotEnv.Extensions.Configuration.Tests;
@@ -20,9 +19,12 @@ public static class DotEnvConfigurationExtensionsTests
         {
             var act = () => DotEnvConfigurationExtensions.AddDotEnvFile(builder, path!);
 
-            act.Should().ThrowExactly<ArgumentException>()
-                .Which.ParamName.Should().Be(nameof(path))
-            ;
+            act.Should()
+                .ThrowExactly<ArgumentException>()
+                .Which
+                .ParamName
+                .Should()
+                .Be(nameof(path));
         }
 
         [Fact]
@@ -30,8 +32,11 @@ public static class DotEnvConfigurationExtensionsTests
         {
             var path = ".env-does-not-exist";
             var act = () => builder.AddDotEnvFile(path, optional: false).Build();
-            act.Should().ThrowExactly<FileNotFoundException>()
-                .WithMessage($"The configuration file '{path}' was not found and is not optional.*");
+            act.Should()
+                .ThrowExactly<FileNotFoundException>()
+                .WithMessage(
+                    $"The configuration file '{path}' was not found and is not optional.*"
+                );
         }
 
         [Fact]
@@ -48,7 +53,13 @@ public static class DotEnvConfigurationExtensionsTests
             test = value
             """;
 
-            builder.AddDotEnvFile(provider: env.StringToFileProvider(), ".env-does-not-exist", prefix: null, optional: false, reloadOnChange: false);
+            builder.AddDotEnvFile(
+                provider: env.StringToFileProvider(),
+                ".env-does-not-exist",
+                prefix: null,
+                optional: false,
+                reloadOnChange: false
+            );
 
             var config = builder.Build();
             config["test"].Should().Be("value");
@@ -62,7 +73,13 @@ public static class DotEnvConfigurationExtensionsTests
             PREFIX_included = value
             """;
 
-            builder.AddDotEnvFile(provider: env.StringToFileProvider(), ".env-does-not-exist", prefix: "PREFIX_", optional: false, reloadOnChange: false);
+            builder.AddDotEnvFile(
+                provider: env.StringToFileProvider(),
+                ".env-does-not-exist",
+                prefix: "PREFIX_",
+                optional: false,
+                reloadOnChange: false
+            );
 
             var config = builder.Build();
             config["included"].Should().Be("value");
@@ -79,7 +96,8 @@ public static class DotEnvConfigurationExtensionsTests
         {
             var act = () => builder.AddDotEnvStream(null!).Build();
 
-            act.Should().Throw<InvalidOperationException>()
+            act.Should()
+                .Throw<InvalidOperationException>()
                 .WithMessage("Source.Stream cannot be null.");
         }
 
@@ -118,8 +136,7 @@ public static class DotEnvConfigurationExtensionsTests
 
             var act = () => builder.Build();
 
-            act.Should().ThrowExactly<ArgumentException>()
-                .WithMessage("Stream was not readable.");
+            act.Should().ThrowExactly<ArgumentException>().WithMessage("Stream was not readable.");
         }
 
         [Fact]
@@ -135,8 +152,7 @@ public static class DotEnvConfigurationExtensionsTests
 
             var act = () => builder.Build();
 
-            act.Should().ThrowExactly<ArgumentException>()
-                .WithMessage("Stream was not readable.");
+            act.Should().ThrowExactly<ArgumentException>().WithMessage("Stream was not readable.");
         }
     }
 }

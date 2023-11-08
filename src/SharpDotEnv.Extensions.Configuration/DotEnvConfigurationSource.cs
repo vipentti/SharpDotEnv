@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
-using System;
 
 namespace SharpDotEnv.Extensions.Configuration
 {
@@ -27,20 +27,26 @@ namespace SharpDotEnv.Extensions.Configuration
         /// </summary>
         public void ResolveFileProvider(IFileProvider baseProvider)
         {
-            if (FileProvider == null &&
-                !string.IsNullOrEmpty(Path) &&
-                System.IO.Path.IsPathRooted(Path))
+            if (
+                FileProvider == null
+                && !string.IsNullOrEmpty(Path)
+                && System.IO.Path.IsPathRooted(Path)
+            )
             {
                 // This creates a PhysicalFileProvider
                 // We simply reuse the same logic but replace it with our own provider
                 base.ResolveFileProvider();
 
-                var root = FileProvider is PhysicalFileProvider physical ? physical.Root : AppContext.BaseDirectory;
+                var root = FileProvider is PhysicalFileProvider physical
+                    ? physical.Root
+                    : AppContext.BaseDirectory;
                 FileProvider = new DotEnvPhysicalFileProvider(root ?? string.Empty);
             }
             else if (FileProvider == null)
             {
-                var root = baseProvider is PhysicalFileProvider physical ? physical.Root : AppContext.BaseDirectory;
+                var root = baseProvider is PhysicalFileProvider physical
+                    ? physical.Root
+                    : AppContext.BaseDirectory;
                 FileProvider = new DotEnvPhysicalFileProvider(root ?? string.Empty);
             }
         }

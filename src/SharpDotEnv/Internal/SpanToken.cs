@@ -19,6 +19,7 @@
 
     internal static class SpanTokenExtensions
     {
-        public static StreamToken ToStreamToken(this SpanToken spanToken) => new StreamToken(spanToken.Type, spanToken.Value.ToString());
+        public static StreamToken ToStreamToken(this SpanToken spanToken) =>
+            new StreamToken(spanToken.Type, spanToken.Value.ToString());
     }
 }

@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using SharpDotEnv.Internal;
-using System;
+﻿using System;
 using System.Linq;
+using FluentAssertions;
+using SharpDotEnv.Internal;
 using Xunit;
 
 namespace SharpDotEnv.Tests.Internal
@@ -67,7 +67,6 @@ namespace SharpDotEnv.Tests.Internal
 
             collection.Should().HaveCount(0);
         }
-
 
         public class LastIndexOf
         {
@@ -141,7 +140,8 @@ namespace SharpDotEnv.Tests.Internal
             public void ThrowsWhenCollectionIsEmpty()
             {
                 Func<int> act = () => collection.Dequeue();
-                act.Should().ThrowExactly<IndexOutOfRangeException>()
+                act.Should()
+                    .ThrowExactly<IndexOutOfRangeException>()
                     .WithMessage("IndexedQueue is empty.");
             }
 
@@ -171,7 +171,8 @@ namespace SharpDotEnv.Tests.Internal
             public void ThrowsWhenCollectionIsEmpty()
             {
                 Func<int> act = () => collection.Peek();
-                act.Should().ThrowExactly<IndexOutOfRangeException>()
+                act.Should()
+                    .ThrowExactly<IndexOutOfRangeException>()
                     .WithMessage("IndexedQueue is empty.");
             }
 

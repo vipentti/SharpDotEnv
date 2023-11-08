@@ -16,18 +16,14 @@
         private readonly bool _skipComments;
         private readonly bool _skipWhitespace;
 
-        public SpanTokenizer(
-            string input,
-            bool skipComments = false,
-            bool skipWhitespace = false)
-            : this(input.AsSpan(), skipComments, skipWhitespace)
-        {
-        }
+        public SpanTokenizer(string input, bool skipComments = false, bool skipWhitespace = false)
+            : this(input.AsSpan(), skipComments, skipWhitespace) { }
 
         public SpanTokenizer(
             ReadOnlySpan<char> input,
             bool skipComments = false,
-            bool skipWhitespace = false)
+            bool skipWhitespace = false
+        )
         {
             _position = 0;
             _line = 0;
@@ -88,7 +84,10 @@
                 var it when char.IsWhiteSpace(it) => LexWhitespace(),
                 '=' => LexEquals(),
                 NullChar => default,
-                var it => throw new NotImplementedException($"Char: '{it}' at {_line}:{_column} {_position}")
+                var it
+                    => throw new NotImplementedException(
+                        $"Char: '{it}' at {_line}:{_column} {_position}"
+                    )
             };
 
             token = result;
@@ -197,7 +196,6 @@
             return -1;
         }
 
-
         private SpanToken LexKey()
         {
             ResetStart();
@@ -231,7 +229,10 @@
 
         private void EatAssert(char ch)
         {
-            Debug.Assert(IsAt(ch), $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'");
+            Debug.Assert(
+                IsAt(ch),
+                $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'"
+            );
             Bump();
         }
 
@@ -286,4 +287,3 @@
         }
     }
 }
-

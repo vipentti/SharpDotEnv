@@ -15,8 +15,7 @@
 
     internal static class TokenTypeExtensions
     {
-        public static bool IsEof(this TokenType tokenType) =>
-            tokenType == TokenType.Eof;
+        public static bool IsEof(this TokenType tokenType) => tokenType == TokenType.Eof;
 
         public static bool IsWhitespace(this TokenType tokenType) =>
             tokenType == TokenType.Whitespace || tokenType == TokenType.Equals;
@@ -28,13 +27,19 @@
             || tokenType == TokenType.BacktickValue;
 
         public static bool IsEof(this StreamToken tok) => tok.Type.IsEof();
+
         public static bool IsValue(this StreamToken tok) => tok.Type.IsValue();
+
         public static bool IsWhitespace(this StreamToken tok) => tok.Type.IsWhitespace();
+
         public static bool IsComment(this StreamToken tok) => tok.Type == TokenType.Comment;
 
         public static bool IsEof(this SpanToken tok) => tok.Type.IsEof();
+
         public static bool IsValue(this SpanToken tok) => tok.Type.IsValue();
+
         public static bool IsWhitespace(this SpanToken tok) => tok.Type.IsWhitespace();
+
         public static bool IsComment(this SpanToken tok) => tok.Type == TokenType.Comment;
     }
 }

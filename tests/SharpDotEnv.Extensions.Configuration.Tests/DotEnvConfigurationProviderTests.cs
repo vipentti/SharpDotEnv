@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using Xunit;
 
 namespace SharpDotEnv.Extensions.Configuration.Tests;
@@ -9,10 +9,9 @@ public class DotEnvConfigurationProviderTests
 {
     private static ConfigurationProvider GetDotEnvProvider(string env, string? prefix = null)
     {
-        var provider = new DotEnvConfigurationProvider(new DotEnvConfigurationSource()
-        {
-            Prefix = prefix
-        });
+        var provider = new DotEnvConfigurationProvider(
+            new DotEnvConfigurationSource() { Prefix = prefix }
+        );
         provider.Load(env.StringToStream());
         return provider;
     }
@@ -68,10 +67,15 @@ public class DotEnvConfigurationProviderTests
 
         var provider = GetDotEnvProvider(env);
 
-        provider.Get("multiline").Should().Be("""
+        provider
+            .Get("multiline")
+            .Should()
+            .Be(
+                """
         this is a value
         on multiple
         lines
-        """.Replace("\r\n", "\n"));
+        """.Replace("\r\n", "\n")
+            );
     }
 }

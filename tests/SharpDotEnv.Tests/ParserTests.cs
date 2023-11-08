@@ -5,29 +5,34 @@ namespace SharpDotEnv.Tests
 {
     public class ParserTests
     {
-        public static readonly TheoryData<string, DotEnv> ParserTestCases = new TheoryData<string, DotEnv>()
+        public static readonly TheoryData<string, DotEnv> ParserTestCases = new TheoryData<
+            string,
+            DotEnv
+        >()
         {
-            { @"
-        # comment
-        "
-            , DotEnv.Empty
-            },
-            { @"
-        empty=
-        "
-            , new DotEnv()
             {
-                { "empty", "" },
-            }},
-            { @"
+                @"
+        # comment
+        ",
+                DotEnv.Empty
+            },
+            {
+                @"
+        empty=
+        ",
+                new DotEnv() { { "empty", "" }, }
+            },
+            {
+                @"
         empty=
         not-empty= not-empty-value works quite well
-        "
-            , new DotEnv()
-            {
-                { "empty", ""},
-                { "not-empty", "not-empty-value works quite well"},
-            }},
+        ",
+                new DotEnv()
+                {
+                    { "empty", "" },
+                    { "not-empty", "not-empty-value works quite well" },
+                }
+            },
         };
 
         [Theory]

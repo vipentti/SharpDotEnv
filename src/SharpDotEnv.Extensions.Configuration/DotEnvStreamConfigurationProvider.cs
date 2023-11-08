@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IO;
+﻿using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace SharpDotEnv.Extensions.Configuration
 {
@@ -15,7 +15,8 @@ namespace SharpDotEnv.Extensions.Configuration
         /// Initializes a new instance with the specified source with the specified prefix
         /// </summary>
         /// <param name="source">The source settings.</param>
-        public DotEnvStreamConfigurationProvider(StreamConfigurationSource source) : base(source)
+        public DotEnvStreamConfigurationProvider(StreamConfigurationSource source)
+            : base(source)
         {
             _prefix = string.Empty;
             _normalizedPrefix = string.Empty;

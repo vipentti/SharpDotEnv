@@ -14,9 +14,7 @@ namespace SharpDotEnv.Internal
 #pragma warning restore IDE0032 // Use auto property
 
         public IndexedQueue()
-            : this(8)
-        {
-        }
+            : this(8) { }
 
         public IndexedQueue(int capacity)
         {
@@ -121,7 +119,8 @@ namespace SharpDotEnv.Internal
 #endif
         }
 
-        public int LastIndexOf(T value) => LastIndexOf(it => EqualityComparer<T>.Default.Equals(value, it));
+        public int LastIndexOf(T value) =>
+            LastIndexOf(it => EqualityComparer<T>.Default.Equals(value, it));
 
         public int LastIndexOf(Func<T, bool> pred)
         {
@@ -136,14 +135,11 @@ namespace SharpDotEnv.Internal
             return -1;
         }
 
-        public Enumerator GetEnumerator() =>
-            new Enumerator(this);
+        public Enumerator GetEnumerator() => new Enumerator(this);
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() =>
-            new Enumerator(this);
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new Enumerator(this);
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            new Enumerator(this);
+        IEnumerator IEnumerable.GetEnumerator() => new Enumerator(this);
 
         public int Count => _len;
 
@@ -154,7 +150,8 @@ namespace SharpDotEnv.Internal
             private readonly IndexedQueue<T> _queue;
             private int _index;
 
-            public Enumerator(IndexedQueue<T> queue) : this()
+            public Enumerator(IndexedQueue<T> queue)
+                : this()
             {
                 _index = -1;
                 _queue = queue;
@@ -185,9 +182,7 @@ namespace SharpDotEnv.Internal
                 return false;
             }
 
-            public readonly void Dispose()
-            {
-            }
+            public readonly void Dispose() { }
         }
     }
 }

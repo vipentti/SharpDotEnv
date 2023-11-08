@@ -13,7 +13,7 @@ namespace SharpDotEnv.Extensions.Configuration
         public string? Prefix { get; set; }
 
         /// <inheritdoc />
-        public override IConfigurationProvider Build(IConfigurationBuilder builder)
-            => new DotEnvStreamConfigurationProvider(this, Prefix);
+        public override IConfigurationProvider Build(IConfigurationBuilder builder) =>
+            new DotEnvStreamConfigurationProvider(this, Prefix);
     }
 }

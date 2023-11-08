@@ -1,7 +1,7 @@
-﻿using Nuke.Common.CI.GitHubActions;
+﻿using System.Collections.Generic;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.ProjectModel;
 using Nuke.Components;
-using System.Collections.Generic;
 using Vipentti.Nuke.Components;
 using static Vipentti.Nuke.Components.StandardNames;
 
@@ -44,7 +44,7 @@ class Build : StandardNukeBuild, IUseCsharpier
     public override IEnumerable<IProvideLinter> Linters => new[]
     {
         From<IUseDotNetFormat>().Linter,
-        // From<IUseCsharpier>().Linter,
+        From<IUseCsharpier>().Linter,
     };
     bool IUseCsharpier.UseGlobalTool { get; } = true;
 

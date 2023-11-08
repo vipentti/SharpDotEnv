@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.FileProviders;
-using SharpDotEnv.Extensions.Configuration;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Extensions.FileProviders;
+using SharpDotEnv.Extensions.Configuration;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -16,8 +16,17 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="path">Path relative to the base path stored in
         /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: null, optional: false, reloadOnChange: false);
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: null,
+                optional: false,
+                reloadOnChange: false
+            );
 
         /// <summary>
         /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -27,8 +36,18 @@ namespace Microsoft.Extensions.Configuration
         /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
         /// <param name="optional">Whether the file is optional.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, bool optional) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: null, optional: optional, reloadOnChange: false);
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path,
+            bool optional
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: null,
+                optional: optional,
+                reloadOnChange: false
+            );
 
         /// <summary>
         /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -36,47 +55,91 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="path">Path relative to the base path stored in
         /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
-        /// <param name="optional">Whether the file is optional.</param>
-        /// <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
-        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, bool optional, bool reloadOnChange) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: null, optional: optional, reloadOnChange: reloadOnChange);
-
-        /// <summary>
-        /// Adds a dotenv configuration source to <paramref name="builder"/>.
-        /// </summary>
-        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
-        /// <param name="path">Path relative to the base path stored in
-        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
-        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
-        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: false, reloadOnChange: false);
-
-        /// <summary>
-        /// Adds a dotenv configuration source to <paramref name="builder"/>.
-        /// </summary>
-        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
-        /// <param name="path">Path relative to the base path stored in
-        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
-        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
-        /// <param name="optional">Whether the file is optional.</param>
-        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix, bool optional) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: optional, reloadOnChange: false);
-
-        /// <summary>
-        /// Adds a dotenv configuration source to <paramref name="builder"/>.
-        /// </summary>
-        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
-        /// <param name="path">Path relative to the base path stored in
-        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
-        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
         /// <param name="optional">Whether the file is optional.</param>
         /// <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, string path, string? prefix, bool optional, bool reloadOnChange) =>
-            builder.AddDotEnvFile(provider: null, path, prefix: prefix, optional: optional, reloadOnChange: reloadOnChange);
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path,
+            bool optional,
+            bool reloadOnChange
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: null,
+                optional: optional,
+                reloadOnChange: reloadOnChange
+            );
+
+        /// <summary>
+        /// Adds a dotenv configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="path">Path relative to the base path stored in
+        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
+        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path,
+            string? prefix
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: prefix,
+                optional: false,
+                reloadOnChange: false
+            );
+
+        /// <summary>
+        /// Adds a dotenv configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="path">Path relative to the base path stored in
+        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
+        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
+        /// <param name="optional">Whether the file is optional.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path,
+            string? prefix,
+            bool optional
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: prefix,
+                optional: optional,
+                reloadOnChange: false
+            );
+
+        /// <summary>
+        /// Adds a dotenv configuration source to <paramref name="builder"/>.
+        /// </summary>
+        /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
+        /// <param name="path">Path relative to the base path stored in
+        /// <see cref="IConfigurationBuilder.Properties"/> of <paramref name="builder"/>.</param>
+        /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
+        /// <param name="optional">Whether the file is optional.</param>
+        /// <param name="reloadOnChange">Whether the configuration should be reloaded if the file changes.</param>
+        /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            string path,
+            string? prefix,
+            bool optional,
+            bool reloadOnChange
+        ) =>
+            builder.AddDotEnvFile(
+                provider: null,
+                path,
+                prefix: prefix,
+                optional: optional,
+                reloadOnChange: reloadOnChange
+            );
 
         /// <summary>
         /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -97,7 +160,8 @@ namespace Microsoft.Extensions.Configuration
             string path,
             string? prefix,
             bool optional,
-            bool reloadOnChange)
+            bool reloadOnChange
+        )
         {
             if (builder == null)
             {
@@ -126,8 +190,10 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="configureSource">Configures the source.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvFile(this IConfigurationBuilder builder, Action<DotEnvConfigurationSource> configureSource)
-            => builder.Add(configureSource);
+        public static IConfigurationBuilder AddDotEnvFile(
+            this IConfigurationBuilder builder,
+            Action<DotEnvConfigurationSource> configureSource
+        ) => builder.Add(configureSource);
 
         /// <summary>
         /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -135,8 +201,10 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="builder">The <see cref="IConfigurationBuilder"/> to add to.</param>
         /// <param name="stream">The <see cref="Stream"/> to read the dotenv configuration data from.</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvStream(this IConfigurationBuilder builder, Stream stream) =>
-            builder.AddDotEnvStream(stream, prefix: null);
+        public static IConfigurationBuilder AddDotEnvStream(
+            this IConfigurationBuilder builder,
+            Stream stream
+        ) => builder.AddDotEnvStream(stream, prefix: null);
 
         /// <summary>
         /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -145,7 +213,11 @@ namespace Microsoft.Extensions.Configuration
         /// <param name="stream">The <see cref="Stream"/> to read the dotenv configuration data from.</param>
         /// <param name="prefix">Optional prefix to filter variables in the dotenv file</param>
         /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
-        public static IConfigurationBuilder AddDotEnvStream(this IConfigurationBuilder builder, Stream stream, string? prefix)
+        public static IConfigurationBuilder AddDotEnvStream(
+            this IConfigurationBuilder builder,
+            Stream stream,
+            string? prefix
+        )
         {
             if (builder == null)
             {
@@ -159,5 +231,4 @@ namespace Microsoft.Extensions.Configuration
             });
         }
     }
-
 }
