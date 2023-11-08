@@ -27,11 +27,7 @@ namespace SharpDotEnv.Internal
             return variables;
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public static DotEnv ParseEnvironment(Stream input, Encoding? encoding = default)
-#else
-        public static DotEnv ParseEnvironment(Stream input, Encoding encoding = default)
-#endif
         {
             var variables = new DotEnv();
             ParseEnvironment(variables, input, encoding);
@@ -51,11 +47,7 @@ namespace SharpDotEnv.Internal
         }
 #endif
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         private static void ParseEnvironment(DotEnv variables, Stream input, Encoding? encoding = default)
-#else
-        private static void ParseEnvironment(DotEnv variables, Stream input, Encoding encoding = default)
-#endif
         {
             using (var streamReader = new StreamReader(input, encoding ?? Encoding.UTF8))
             {
