@@ -54,6 +54,7 @@ namespace SharpDotEnv.Extensions.Configuration
             _normalizedPrefix = DotEnvKeyNormalizer.Normalize(_prefix);
         }
 
+        /// <inheritdoc />
         public override void Load(Stream stream)
         {
             Data = DotEnvKeyNormalizer.ReadNormalizedEnvironment(stream, _normalizedPrefix);

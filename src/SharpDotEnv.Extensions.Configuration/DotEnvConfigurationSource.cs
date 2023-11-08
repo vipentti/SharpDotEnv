@@ -4,6 +4,9 @@ using System;
 
 namespace SharpDotEnv.Extensions.Configuration
 {
+    /// <summary>
+    /// Configuration source for a dotenv file
+    /// </summary>
     public class DotEnvConfigurationSource : FileConfigurationSource
     {
         /// <summary>
@@ -16,6 +19,7 @@ namespace SharpDotEnv.Extensions.Configuration
         public string Prefix { get; set; }
 #endif
 
+        /// <inheritdoc />
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             EnsureDefaults(builder);

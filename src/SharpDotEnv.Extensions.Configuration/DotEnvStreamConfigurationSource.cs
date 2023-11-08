@@ -2,6 +2,9 @@
 
 namespace SharpDotEnv.Extensions.Configuration
 {
+    /// <summary>
+    /// Configuration source for stream containing dotenv formatted data
+    /// </summary>
     public class DotEnvStreamConfigurationSource : StreamConfigurationSource
     {
         /// <summary>
@@ -13,6 +16,7 @@ namespace SharpDotEnv.Extensions.Configuration
         public string Prefix { get; set; }
 #endif
 
+        /// <inheritdoc />
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
             => new DotEnvStreamConfigurationProvider(this, Prefix);
     }
