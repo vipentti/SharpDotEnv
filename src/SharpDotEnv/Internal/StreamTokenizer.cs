@@ -9,8 +9,8 @@ namespace SharpDotEnv.Internal
     internal struct StreamTokenizer
     {
         private readonly StreamReader _stream;
-        private readonly StringBuilder _valueBuffer;
-        private readonly IndexedQueue<char> _temp;
+        private readonly StringBuilder _currentValueBuilder;
+        private readonly IndexedQueue<char> _buffer;
         private LexMode _lexMode;
         private int _position;
         private int _line;
@@ -24,8 +24,8 @@ namespace SharpDotEnv.Internal
             bool skipComments = false,
             bool skipWhitespace = false)
         {
-            _valueBuffer = new StringBuilder();
-            _temp = new IndexedQueue<char>();
+            _currentValueBuilder = new StringBuilder();
+            _buffer = new IndexedQueue<char>();
             _position = 0;
             _line = 0;
             _column = 0;
@@ -36,14 +36,13 @@ namespace SharpDotEnv.Internal
             _skipWhitespace = skipWhitespace;
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         public readonly bool IsDone => _stream.EndOfStream;
 
         public readonly char Current => Peek();
 
         public readonly char Peek()
         {
-            if (_temp.TryPeek(out var read))
+            if (_buffer.TryPeek(out var read))
             {
                 return read;
             }
@@ -53,7 +52,7 @@ namespace SharpDotEnv.Internal
 
         private readonly char StreamPeek()
         {
-            int next = _stream.Peek();
+            var next = _stream.Peek();
             return next != -1 ? (char)next : NullChar;
         }
 
@@ -65,49 +64,13 @@ namespace SharpDotEnv.Internal
 
         private readonly char Next()
         {
-            if (_temp.TryDequeue(out var result))
+            if (_buffer.TryDequeue(out var result))
             {
                 return result;
             }
 
             return StreamRead();
         }
-#else
-        public char Current => Peek();
-        public bool IsDone => _stream.EndOfStream;
-
-        public char Peek()
-        {
-            if (_temp.TryPeek(out var read))
-            {
-                return read;
-            }
-
-            return StreamPeek();
-        }
-
-        private char StreamPeek()
-        {
-            int next = _stream.Peek();
-            return next != -1 ? (char)next : NullChar;
-        }
-
-        private char StreamRead()
-        {
-            var next = _stream.Read();
-            return next != -1 ? (char)next : NullChar;
-        }
-
-        private char Next()
-        {
-            if (_temp.TryDequeue(out var result))
-            {
-                return result;
-            }
-
-            return StreamRead();
-        }
-#endif
 
         public bool MoveNext(out StreamToken token)
         {
@@ -220,7 +183,7 @@ namespace SharpDotEnv.Internal
             // but we need to buffer until we have read to end
             var foundStartOfValue = false;
 
-            _temp.Clear();
+            _buffer.Clear();
 
             while (StreamPeek() is char ch && !IsNul(ch))
             {
@@ -235,13 +198,13 @@ namespace SharpDotEnv.Internal
                 else
                 {
                     foundStartOfValue = true;
-                    _temp.Enqueue(StreamRead());
+                    _buffer.Enqueue(StreamRead());
                 }
             }
 
-            if (_temp.Count > 0)
+            if (_buffer.Count > 0)
             {
-                int lastCharIndex = _temp.LastIndexOf(it => !char.IsWhiteSpace(it));
+                int lastCharIndex = _buffer.LastIndexOf(it => !char.IsWhiteSpace(it));
 
                 Debug.Assert(lastCharIndex > -1, "Expected at least one character");
 
@@ -275,31 +238,17 @@ namespace SharpDotEnv.Internal
             return Emit(TokenType.Whitespace);
         }
 
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         private readonly StreamToken Emit(TokenType type)
         {
-            var token = new StreamToken(type, _valueBuffer.ToString());
+            var token = new StreamToken(type, _currentValueBuilder.ToString());
             ResetStart();
             return token;
         }
 
         private readonly void ResetStart()
         {
-            _valueBuffer.Clear();
+            _currentValueBuilder.Clear();
         }
-#else
-        private StreamToken Emit(TokenType type)
-        {
-            var token = new StreamToken(type, _valueBuffer.ToString());
-            ResetStart();
-            return token;
-        }
-
-        private void ResetStart()
-        {
-            _valueBuffer.Clear();
-        }
-#endif
 
         private void CheckStep()
         {
@@ -321,7 +270,7 @@ namespace SharpDotEnv.Internal
 
             if (next != NullChar)
             {
-                _valueBuffer.Append(next);
+                _currentValueBuilder.Append(next);
             }
 
             _position++;

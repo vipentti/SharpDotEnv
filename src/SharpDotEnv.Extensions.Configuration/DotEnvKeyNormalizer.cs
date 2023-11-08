@@ -30,11 +30,9 @@ namespace SharpDotEnv.Extensions.Configuration
         {
             if (normalizedKey.StartsWith(normalizedPrefix, StringComparison.OrdinalIgnoreCase))
             {
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-                data[normalizedKey[normalizedPrefix.Length..]] = value;
-#else
+#pragma warning disable IDE0057 // Use range operator
                 data[normalizedKey.Substring(normalizedPrefix.Length)] = value;
-#endif
+#pragma warning restore IDE0057 // Use range operator
             }
         }
     }
