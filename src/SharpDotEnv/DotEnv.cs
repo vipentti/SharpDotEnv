@@ -12,6 +12,9 @@ namespace SharpDotEnv
     /// </summary>
     public class DotEnv : Dictionary<string, string>
     {
+        /// <summary>
+        /// Default empty configuration
+        /// </summary>
         public static readonly DotEnv Empty = new DotEnv();
 
         /// <summary>
@@ -137,38 +140,40 @@ namespace SharpDotEnv
             return this;
         }
 
+        /// <summary>
+        /// Initializes a new instance that is empty.
+        /// </summary>
         public DotEnv()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance copying values from the <paramref name="dictionary"/>
+        /// </summary>
+        /// <param name="dictionary">The dictionary to copy values from</param>
         public DotEnv(IDictionary<string, string> dictionary) : base(dictionary)
         {
         }
 
-        public DotEnv(IEqualityComparer<string> comparer) : base(comparer)
-        {
-        }
+        /// <summary>
+        /// Initialize a new instance with the specified capacity
+        /// </summary>
+        /// <param name="capacity">Initial capacity</param>
         public DotEnv(int capacity) : base(capacity)
-        {
-        }
-        public DotEnv(IDictionary<string, string> dictionary, IEqualityComparer<string> comparer) : base(dictionary, comparer)
-        {
-        }
-
-        public DotEnv(int capacity, IEqualityComparer<string> comparer) : base(capacity, comparer)
         {
         }
 
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+        /// <summary>
+        /// Initializes a new instance copying values from the <paramref name="collection"/>
+        /// </summary>
+        /// <param name="collection">The collection to copy values from</param>
         public DotEnv(IEnumerable<KeyValuePair<string, string>> collection) : base(collection)
-        {
-        }
-
-        public DotEnv(IEnumerable<KeyValuePair<string, string>> collection, IEqualityComparer<string>? comparer) : base(collection, comparer)
         {
         }
 #endif
 
+        /// <inheritdoc />
         protected DotEnv(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }

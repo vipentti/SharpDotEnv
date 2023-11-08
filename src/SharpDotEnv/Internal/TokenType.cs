@@ -1,6 +1,6 @@
 ﻿namespace SharpDotEnv.Internal
 {
-    public enum TokenType
+    internal enum TokenType
     {
         Eof,
         Whitespace,

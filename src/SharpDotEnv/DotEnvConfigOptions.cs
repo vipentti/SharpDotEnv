@@ -8,7 +8,14 @@ namespace SharpDotEnv
     /// </summary>
     public class DotEnvConfigOptions
     {
+        /// <summary>
+        /// Default options
+        /// </summary>
         public static readonly DotEnvConfigOptions DefaultOptions = new DotEnvConfigOptions();
+
+        /// <summary>
+        /// Logger used by default
+        /// </summary>
         public static readonly Action<string> DefaultDebugLogger = Console.WriteLine;
 
         /// <summary>
@@ -70,24 +77,58 @@ namespace SharpDotEnv
         /// </summary>
         public Action<string> DebugLogger { get; set; } = DefaultDebugLogger;
 
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="path"/>
+        /// </summary>
+        /// <param name="path">New path</param>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithPath(string path)
             => new DotEnvConfigOptions(this) { Path = path };
 
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="encoding"/>
+        /// </summary>
+        /// <param name="encoding">New encoding</param>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithEncoding(Encoding encoding)
             => new DotEnvConfigOptions(this) { Encoding = encoding };
 
-        public DotEnvConfigOptions WithOverride(bool @override)
-            => new DotEnvConfigOptions(this) { Override = @override };
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="value"/>
+        /// </summary>
+        /// <param name="value">New value to set</param>
+        /// <returns>New instance</returns>
+        public DotEnvConfigOptions WithOverride(bool value)
+            => new DotEnvConfigOptions(this) { Override = value };
 
+        /// <summary>
+        /// Return a new instance based on this with debug set to true
+        /// </summary>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithDebug()
             => new DotEnvConfigOptions(this) { Debug = true };
 
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="debug"/>
+        /// </summary>
+        /// <param name="debug">New value to set</param>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithDebug(bool debug)
             => new DotEnvConfigOptions(this) { Debug = debug };
 
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="logger"/>
+        /// </summary>
+        /// <param name="logger">DebugLogger to use</param>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithDebugLogger(Action<string> logger)
             => new DotEnvConfigOptions(this) { DebugLogger = logger };
 
+        /// <summary>
+        /// Return a new instance based on this with the specified <paramref name="ignore"/>
+        /// </summary>
+        /// <param name="ignore">Whether to ignore exceptions or not</param>
+        /// <returns>New instance</returns>
         public DotEnvConfigOptions WithIgnoreExceptions(bool ignore)
             => new DotEnvConfigOptions(this) { IgnoreExceptions = ignore };
     }
