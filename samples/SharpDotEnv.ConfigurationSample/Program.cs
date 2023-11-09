@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿// Copyright 2023 Ville Penttinen
+// Distributed under the MIT License.
+// https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
+
+using Microsoft.Extensions.Configuration;
 
 var config = new ConfigurationBuilder().AddDotEnvFile(".env-sample").Build();
 

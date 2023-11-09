@@ -1,4 +1,8 @@
-﻿using FluentAssertions;
+﻿// Copyright 2023 Ville Penttinen
+// Distributed under the MIT License.
+// https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
+
+using FluentAssertions;
 using Xunit;
 
 namespace SharpDotEnv.Tests

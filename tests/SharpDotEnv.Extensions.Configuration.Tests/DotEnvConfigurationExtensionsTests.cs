@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright 2023 Ville Penttinen
+// Distributed under the MIT License.
+// https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
+
+using System;
 using System.IO;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;

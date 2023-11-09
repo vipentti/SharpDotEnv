@@ -1,4 +1,8 @@
-﻿using SharpDotEnv;
+﻿// Copyright 2023 Ville Penttinen
+// Distributed under the MIT License.
+// https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
+
+using SharpDotEnv;
 
 var env = DotEnv.Config(new DotEnvConfigOptions().WithPath(".env-sample").WithDebug(true));
 

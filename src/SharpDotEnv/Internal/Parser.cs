@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿// Copyright 2023 Ville Penttinen
+// Distributed under the MIT License.
+// https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
+
+using System.IO;
 using System.Text;
 using SharpDotEnv.Exceptions;
 
