@@ -68,7 +68,7 @@ Console.WriteLine("value: {0}, equals: {1}",
     env["EXAMPLE_VALUE"] == "this is only a test");
 ```
 
-See also [samples/SharpDotEnv.ConsoleSample](./samples/SharpDotEnv.ConsoleSample)
+See also [samples/SharpDotEnv.ConsoleSample](https://github.com/vipentti/SharpDotEnv/tree/main/samples/SharpDotEnv.ConsoleSample)
 
 ## Usage with Microsoft.Extensions.Configuration
 
@@ -97,9 +97,9 @@ Console.WriteLine("value: {0}, equals: {1}",
     config["EXAMPLE_VALUE"] == "this is a nested value");
 ```
 
-See also [samples/SharpDotEnv.ConfigurationSample](./samples/SharpDotEnv.ConfigurationSample)
+See also [samples/SharpDotEnv.ConfigurationSample](https://github.com/vipentti/SharpDotEnv/tree/main/samples/SharpDotEnv.ConfigurationSample)
 
 
 ## License
 
-SharpDotEnv is licensed under the [MIT License](./LICENSE.md)
+SharpDotEnv is licensed under the [MIT License](https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md)
