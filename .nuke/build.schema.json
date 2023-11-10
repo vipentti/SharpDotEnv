@@ -24,6 +24,10 @@
           "type": "boolean",
           "description": "Force UseReproducible to be set"
         },
+        "GitHubReleaseGitHubToken": {
+          "type": "string",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
         "GitRemoteName": {
           "type": "string"
         },
@@ -98,6 +102,7 @@
             "enum": [
               "CheckCsharpier",
               "Compile",
+              "CreateGitHubRelease",
               "FinalizeRelease",
               "FinishChangelog",
               "Format",
@@ -126,6 +131,7 @@
             "enum": [
               "CheckCsharpier",
               "Compile",
+              "CreateGitHubRelease",
               "FinalizeRelease",
               "FinishChangelog",
               "Format",

@@ -22,6 +22,17 @@ on:
       - main
   workflow_dispatch: # Allow running the workflow manually from the GitHub UI
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  statuses: write
+
 jobs:
   windows-latest:
     name: windows-latest
@@ -41,6 +52,7 @@ jobs:
         run: ./build.cmd Test InstallLinters Lint Pack ValidatePackages Publish
         env:
           NuGetApiKey: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PackageOwner: ${{ vars.PACKAGE_OWNER }}
           NuGetSource: ${{ vars.NUGET_SOURCE }}
   ubuntu-latest:
@@ -61,6 +73,7 @@ jobs:
         run: ./build.cmd Test InstallLinters Lint Pack ValidatePackages Publish
         env:
           NuGetApiKey: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PackageOwner: ${{ vars.PACKAGE_OWNER }}
           NuGetSource: ${{ vars.NUGET_SOURCE }}
   macos-latest:
@@ -81,5 +94,6 @@ jobs:
         run: ./build.cmd Test InstallLinters Lint Pack ValidatePackages Publish
         env:
           NuGetApiKey: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PackageOwner: ${{ vars.PACKAGE_OWNER }}
           NuGetSource: ${{ vars.NUGET_SOURCE }}

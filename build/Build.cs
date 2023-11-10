@@ -35,8 +35,6 @@ namespace build;
 )]
 class Build : StandardNukeBuild, IUseCsharpier
 {
-    public Solution CurrentSolution => From<IHazSolution>().Solution;
-
     public override string OriginalRepositoryName { get; } = "SharpDotEnv";
     public override string MainReleaseBranch { get; } = MainBranch;
     public override IEnumerable<Project> ProjectsToPack => new[]
@@ -51,6 +49,8 @@ class Build : StandardNukeBuild, IUseCsharpier
         From<IUseCsharpier>().Linter,
     };
     bool IUseCsharpier.UseGlobalTool { get; } = true;
+
+    public override bool SignReleaseTags { get; } = true;
 
     public override IEnumerable<Project> TestProjects => CurrentSolution.GetAllProjects("*Tests*");
 
