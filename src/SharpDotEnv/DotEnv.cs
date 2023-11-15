@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Text;
 using SharpDotEnv.Internal;
 
@@ -166,9 +165,5 @@ namespace SharpDotEnv
         public DotEnv(IEnumerable<KeyValuePair<string, string>> collection)
             : base(collection) { }
 #endif
-
-        /// <inheritdoc />
-        protected DotEnv(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
     }
 }
