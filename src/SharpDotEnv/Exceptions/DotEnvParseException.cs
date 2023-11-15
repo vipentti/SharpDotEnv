@@ -3,14 +3,12 @@
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
 using System;
-using System.Runtime.Serialization;
 
 namespace SharpDotEnv.Exceptions
 {
     /// <summary>
     /// Represents errors that occur during parsing of dotenv files.
     /// </summary>
-    [Serializable]
     public class DotEnvParseException : Exception
     {
         /// <summary>
@@ -32,9 +30,5 @@ namespace SharpDotEnv.Exceptions
         /// <param name="innerException">The inner exception</param>
         public DotEnvParseException(string message, Exception innerException)
             : base(message, innerException) { }
-
-        /// <inheritdoc />
-        protected DotEnvParseException(SerializationInfo info, StreamingContext context)
-            : base(info, context) { }
     }
 }
