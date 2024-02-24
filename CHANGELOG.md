@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 - Document current PublicAPI to keep track of breaking changes
+- Internal refactor of tokenizers to share common state
 
 ## [0.3.0] / 2023-11-15
 - Add support for .NET 8
