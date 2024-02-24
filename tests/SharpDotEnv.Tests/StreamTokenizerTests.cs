@@ -41,13 +41,11 @@ namespace SharpDotEnv.Tests
         {
             using (
                 var stream = new MemoryStream(
-                    Encoding
-                        .UTF8
-                        .GetBytes(
-                            @"
+                    Encoding.UTF8.GetBytes(
+                        @"
         value = 1234
         ".Trim()
-                        )
+                    )
                 )
             )
             using (var reader = new StreamReader(stream))

@@ -25,9 +25,7 @@ public static class DotEnvConfigurationExtensionsTests
 
             act.Should()
                 .ThrowExactly<ArgumentException>()
-                .Which
-                .ParamName
-                .Should()
+                .Which.ParamName.Should()
                 .Be(nameof(path));
         }
 
@@ -54,8 +52,8 @@ public static class DotEnvConfigurationExtensionsTests
         public void SupportsLoadingDataFromFileProvider()
         {
             var env = """
-            test = value
-            """;
+                test = value
+                """;
 
             builder.AddDotEnvFile(
                 provider: env.StringToFileProvider(),
@@ -73,9 +71,9 @@ public static class DotEnvConfigurationExtensionsTests
         public void SupportsLoadingDataFromFileProviderWithPrefix()
         {
             var env = """
-            notincluded = value
-            PREFIX_included = value
-            """;
+                notincluded = value
+                PREFIX_included = value
+                """;
 
             builder.AddDotEnvFile(
                 provider: env.StringToFileProvider(),
@@ -109,8 +107,8 @@ public static class DotEnvConfigurationExtensionsTests
         public void SupportsLoadingDataFromStream()
         {
             var env = """
-            test = value
-            """;
+                test = value
+                """;
 
             var config = builder.AddDotEnvStream(env.StringToStream()).Build();
             config["test"].Should().Be("value");
@@ -120,9 +118,9 @@ public static class DotEnvConfigurationExtensionsTests
         public void SupportsLoadingDataFromStreamWithPrefix()
         {
             var env = """
-            notincluded = value
-            PREFIX_included = value
-            """;
+                notincluded = value
+                PREFIX_included = value
+                """;
 
             var config = builder.AddDotEnvStream(env.StringToStream(), prefix: "PREFIX_").Build();
             config["included"].Should().Be("value");
@@ -133,8 +131,8 @@ public static class DotEnvConfigurationExtensionsTests
         public void Throws_IfReadingMultipleTimesFromStream()
         {
             var env = """
-            test = value
-            """;
+                test = value
+                """;
 
             _ = builder.AddDotEnvStream(env.StringToStream()).Build();
 
@@ -147,8 +145,8 @@ public static class DotEnvConfigurationExtensionsTests
         public void Throws_IfStreamWasDisposed()
         {
             var env = """
-            test = value
-            """;
+                test = value
+                """;
             using (var stream = env.StringToStream())
             {
                 builder.AddDotEnvStream(stream);

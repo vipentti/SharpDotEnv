@@ -24,8 +24,8 @@ public class DotEnvConfigurationProviderTests
     public void DoubleUnderScoresAreConvertedToKeyPaths()
     {
         var env = """
-        Nested__Path__With__Keys = some nested value
-        """;
+            Nested__Path__With__Keys = some nested value
+            """;
 
         var provider = GetDotEnvProvider(env);
 
@@ -36,9 +36,9 @@ public class DotEnvConfigurationProviderTests
     public void DoubleUnderScoresAlsoWorkWithPrefixes()
     {
         var env = """
-        Some__Other__Nested = `does not get included`
-        PREFIX_Nested__Path__With__Keys = some nested value
-        """;
+            Some__Other__Nested = `does not get included`
+            PREFIX_Nested__Path__With__Keys = some nested value
+            """;
 
         var provider = GetDotEnvProvider(env, prefix: "PREFIX_");
 
@@ -52,8 +52,8 @@ public class DotEnvConfigurationProviderTests
     public void Supports_EmptyValues()
     {
         var env = """
-        empty =  # comment
-        """;
+            empty =  # comment
+            """;
 
         var provider = GetDotEnvProvider(env);
 
@@ -64,10 +64,10 @@ public class DotEnvConfigurationProviderTests
     public void Supports_MultilineValues()
     {
         var env = """
-        multiline = "this is a value
-        on multiple
-        lines"
-        """;
+            multiline = "this is a value
+            on multiple
+            lines"
+            """;
 
         var provider = GetDotEnvProvider(env);
 
@@ -76,10 +76,10 @@ public class DotEnvConfigurationProviderTests
             .Should()
             .Be(
                 """
-        this is a value
-        on multiple
-        lines
-        """.Replace("\r\n", "\n")
+                this is a value
+                on multiple
+                lines
+                """.Replace("\r\n", "\n")
             );
     }
 }

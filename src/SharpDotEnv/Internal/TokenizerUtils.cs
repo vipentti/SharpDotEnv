@@ -8,8 +8,7 @@ internal static class TokenizerUtils
 {
     public const char NullChar = '\0';
 
-    public static bool IsValidKeyChar(char ch) =>
-        !char.IsWhiteSpace(ch) && ch != '=' && !IsNul(ch);
+    public static bool IsValidKeyChar(char ch) => !char.IsWhiteSpace(ch) && ch != '=' && !IsNul(ch);
 
     public static bool IsEol(char ch) => ch == '\r' || ch == '\n';
 
