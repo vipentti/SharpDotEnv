@@ -18,5 +18,6 @@ internal static class TokenizerUtils
 
     public static bool IsNotEol(char ch) => !IsEol(ch);
 
-    public static string GetEscapeSequence(char c) => "\\u" + ((int)c).ToString("X4", CultureInfo.InvariantCulture);
+    public static string GetEscapeSequence(char c) =>
+        "\\u" + ((int)c).ToString("X4", CultureInfo.InvariantCulture);
 }

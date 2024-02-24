@@ -46,8 +46,14 @@ public class ReadEnvFromEnvMultiline
     [InlineData("MULTI_DOUBLE_QUOTED", "THIS\nIS\nA\nMULTILINE\nSTRING")]
     [InlineData("MULTI_SINGLE_QUOTED", "THIS\nIS\nA\nMULTILINE\nSTRING")]
     [InlineData("MULTI_BACKTICKED", "THIS\nIS\nA\n\"MULTILINE\'S\"\nSTRING")]
-    [InlineData("MAINTAIN_EXPECTED_NEWLINES", "\r\n\r\nmaintain\nleading and trailing newlines\r\n\r\n")]
-    [InlineData("MAINTAIN_EXPECTED_NEWLINES_MULTI", "\n\nTHIS\nIS\nA MULTILINE STRING\nWITH LEADING\n\nAND\n\nTRAILING\nNEWLINES\n\n")]
+    [InlineData(
+        "MAINTAIN_EXPECTED_NEWLINES",
+        "\r\n\r\nmaintain\nleading and trailing newlines\r\n\r\n"
+    )]
+    [InlineData(
+        "MAINTAIN_EXPECTED_NEWLINES_MULTI",
+        "\n\nTHIS\nIS\nA MULTILINE STRING\nWITH LEADING\n\nAND\n\nTRAILING\nNEWLINES\n\n"
+    )]
     public void Should_have_expected_value(string key, string expected)
     {
         fileEnv[key].Should().Be(expected);

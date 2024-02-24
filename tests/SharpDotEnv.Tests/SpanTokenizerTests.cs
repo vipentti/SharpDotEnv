@@ -25,7 +25,9 @@ public class SpanTokenizerTests
             readTokens.Add(TestToken.From(tok));
         }
 
-        readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
+        readTokens
+            .Should()
+            .BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
     }
 
     [Fact]
@@ -52,8 +54,8 @@ public class SpanTokenizerTests
                     new TestToken(TokenType.Equals, "="),
                     new TestToken(TokenType.Whitespace, " "),
                     new TestToken(TokenType.Value, "1234"),
-                }
-                , options => options.IncludingInternalProperties()
+                },
+                options => options.IncludingInternalProperties()
             );
     }
 
@@ -86,7 +88,9 @@ public class SpanTokenizerTests
             new TestToken(TokenType.Value, "2"),
         };
 
-        readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
+        readTokens
+            .Should()
+            .BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
     }
 
     [Fact]
@@ -128,6 +132,8 @@ public class SpanTokenizerTests
             readTokens.Add(TestToken.From(tok));
         }
 
-        readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
+        readTokens
+            .Should()
+            .BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
     }
 }

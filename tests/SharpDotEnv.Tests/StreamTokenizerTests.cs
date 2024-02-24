@@ -32,7 +32,9 @@ public class StreamTokenizerTests
                 readTokens.Add(TestToken.From(tok));
             }
 
-            readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
+            readTokens
+                .Should()
+                .BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
         }
     }
 
@@ -67,7 +69,8 @@ public class StreamTokenizerTests
                         new TestToken(TokenType.Equals, "="),
                         new TestToken(TokenType.Whitespace, " "),
                         new TestToken(TokenType.Value, "1234"),
-                    }, options => options.IncludingInternalProperties()
+                    },
+                    options => options.IncludingInternalProperties()
                 );
         }
     }

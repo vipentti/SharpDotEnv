@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Ville Penttinen
+﻿// Copyright 2023-2024 Ville Penttinen
 // Distributed under the MIT License.
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
@@ -11,12 +11,12 @@ namespace SharpDotEnv.Internal
     internal static class ThrowHelpers
     {
         public static void ThrowIfNull(
-    #if NETCOREAPP3_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
             [NotNull]
-    #endif
+#endif
             object? argument,
-            [CallerArgumentExpression(nameof(argument))]
-            string? paramName = default)
+            [CallerArgumentExpression(nameof(argument))] string? paramName = default
+        )
         {
             if (argument is null)
             {
@@ -24,11 +24,11 @@ namespace SharpDotEnv.Internal
             }
         }
 
-    #if NETCOREAPP3_0_OR_GREATER
+#if NETCOREAPP3_0_OR_GREATER
         [DoesNotReturn]
-    #endif
-        private static void ThrowNullException(string? paramName)
-            => throw new ArgumentNullException(paramName);
+#endif
+        private static void ThrowNullException(string? paramName) =>
+            throw new ArgumentNullException(paramName);
     }
 }
 

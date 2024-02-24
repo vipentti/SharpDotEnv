@@ -12,11 +12,11 @@ namespace SharpDotEnv.Extensions.Configuration;
 internal static class DotEnvKeyNormalizer
 {
     public static string Normalize(string key) =>
-    #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
         key.Replace("__", ConfigurationPath.KeyDelimiter, StringComparison.Ordinal);
-    #else
+#else
         key.Replace("__", ConfigurationPath.KeyDelimiter);
-    #endif
+#endif
 
     public static Dictionary<string, string?> ReadNormalizedEnvironment(
         Stream stream,
