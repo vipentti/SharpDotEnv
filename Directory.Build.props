@@ -9,7 +9,7 @@
     <!-- Build -->
     <PropertyGroup>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-         <!-- Enable linter -->
+        <!-- Enable linter -->
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
         <WarnOnPackingNonPackableProject>true</WarnOnPackingNonPackableProject>
@@ -22,7 +22,7 @@
         <IsPublishable>false</IsPublishable>
 
         <Authors>Ville Penttinen</Authors>
-        <Copyright>Copyright © 2023 Ville Penttinen</Copyright>
+        <Copyright>Copyright © 2023-2024 Ville Penttinen</Copyright>
         <PackageProjectUrl>https://github.com/vipentti/SharpDotEnv</PackageProjectUrl>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/vipentti/SharpDotEnv</RepositoryUrl>
