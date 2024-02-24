@@ -11,8 +11,7 @@ namespace SharpDotEnv.Extensions.Configuration;
 
 internal static class DotEnvKeyNormalizer
 {
-    public static string Normalize(string key) =>
-        key.Replace("__", ConfigurationPath.KeyDelimiter);
+    public static string Normalize(string key) => key.Replace("__", ConfigurationPath.KeyDelimiter);
 
     public static Dictionary<string, string?> ReadNormalizedEnvironment(
         Stream stream,
