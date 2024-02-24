@@ -69,10 +69,7 @@ public class DotEnv : Dictionary<string, string>
     /// <exception cref="ArgumentNullException">When options are null</exception>
     public static DotEnv Parse(DotEnvConfigOptions options)
     {
-        if (options == null)
-        {
-            throw new ArgumentNullException(nameof(options));
-        }
+        ThrowHelpers.ThrowIfNull(options);
 
         try
         {

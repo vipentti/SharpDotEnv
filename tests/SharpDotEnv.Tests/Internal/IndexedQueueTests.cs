@@ -145,7 +145,7 @@ namespace SharpDotEnv.Tests.Internal
             {
                 Func<int> act = () => collection.Dequeue();
                 act.Should()
-                    .ThrowExactly<IndexOutOfRangeException>()
+                    .ThrowExactly<InvalidOperationException>()
                     .WithMessage("IndexedQueue is empty.");
             }
 
@@ -176,7 +176,7 @@ namespace SharpDotEnv.Tests.Internal
             {
                 Func<int> act = () => collection.Peek();
                 act.Should()
-                    .ThrowExactly<IndexOutOfRangeException>()
+                    .ThrowExactly<InvalidOperationException>()
                     .WithMessage("IndexedQueue is empty.");
             }
 

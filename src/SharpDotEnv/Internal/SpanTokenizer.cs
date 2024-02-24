@@ -10,7 +10,7 @@ using static SharpDotEnv.Internal.TokenizerUtils;
 
 internal ref struct SpanTokenizer
 {
-    public readonly ReadOnlySpan<char> _input;
+    private readonly ReadOnlySpan<char> _input;
     private LexMode _lexMode;
     private int _position;
     private int _line;
@@ -210,25 +210,13 @@ internal ref struct SpanTokenizer
     private SpanToken LexComment()
     {
         AcceptRun(IsNotEol);
-        var token = Emit(TokenType.Comment);
-        return token;
+        return Emit(TokenType.Comment);
     }
 
     private SpanToken LexWhitespace()
     {
         AcceptRun(char.IsWhiteSpace);
         return Emit(TokenType.Whitespace);
-    }
-
-    private bool TryEat(char ch)
-    {
-        if (IsAt(ch))
-        {
-            Bump();
-            return true;
-        }
-
-        return false;
     }
 
     private void EatAssert(char ch)

@@ -6,7 +6,7 @@ using SharpDotEnv.Internal;
 
 namespace SharpDotEnv.Tests
 {
-    public readonly struct TestToken
+    public readonly record struct TestToken
     {
         internal TestToken(TokenType type, string value)
         {

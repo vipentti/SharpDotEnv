@@ -4,6 +4,7 @@
 
 using System;
 using System.Text;
+using SharpDotEnv.Internal;
 
 namespace SharpDotEnv;
 
@@ -37,6 +38,8 @@ public class DotEnvConfigOptions
     /// <param name="options">Options to copy from</param>
     public DotEnvConfigOptions(DotEnvConfigOptions options)
     {
+        ThrowHelpers.ThrowIfNull(options);
+
         Path = options.Path;
         Encoding = options.Encoding;
         Override = options.Override;

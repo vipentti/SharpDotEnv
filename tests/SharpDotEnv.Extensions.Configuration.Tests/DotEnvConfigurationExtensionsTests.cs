@@ -89,7 +89,7 @@ public static class DotEnvConfigurationExtensionsTests
         }
     }
 
-    public class AddDotEnvStream
+    public class AddDotEnvStreamTests
     {
         private readonly ConfigurationBuilder builder = new ConfigurationBuilder();
 

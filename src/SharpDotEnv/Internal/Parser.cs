@@ -5,6 +5,8 @@
 using System.IO;
 using System.Text;
 using SharpDotEnv.Exceptions;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace SharpDotEnv.Internal;
 
@@ -63,6 +65,32 @@ internal static class Parser
         StreamToken valueToken
     )
     {
+        ValidateTokens(keyToken, valueToken);
+
+        // Normalize line endings
+        var value = valueToken.Value;
+
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+        value = value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace("\r", "\n", StringComparison.Ordinal);
+#else
+        value = value.Replace("\r\n", "\n").Replace("\r", "\n");
+#endif
+
+        if (valueToken.Type == TokenType.DoubleQuoteValue)
+        {
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+            value = value.Replace("\\n", "\n", StringComparison.Ordinal).Replace("\\r", "\r", StringComparison.Ordinal);
+#else
+            value = value.Replace("\\n", "\n").Replace("\\r", "\r");
+#endif
+        }
+
+        variables[keyToken.Value] = value;
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void ValidateTokens(StreamToken keyToken, StreamToken valueToken)
+    {
         if (keyToken.Type != TokenType.Key)
         {
             throw new DotEnvParseException(Strings.FormatError_ExpectedKey(keyToken));
@@ -79,15 +107,5 @@ internal static class Parser
         {
             throw new DotEnvParseException(Strings.FormatError_InvalidValue(key, valueToken));
         }
-
-        // Normalize line endings
-        var value = valueToken.Value.Replace("\r\n", "\n").Replace("\r", "\n");
-
-        if (valueToken.Type == TokenType.DoubleQuoteValue)
-        {
-            value = value.Replace("\\n", "\n").Replace("\\r", "\r");
-        }
-
-        variables[key] = value;
     }
 }
