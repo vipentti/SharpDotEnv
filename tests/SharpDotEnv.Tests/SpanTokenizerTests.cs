@@ -25,7 +25,7 @@ namespace SharpDotEnv.Tests
                 readTokens.Add(TestToken.From(tok));
             }
 
-            readTokens.Should().BeEquivalentTo(expectedTokens);
+            readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
         }
 
         [Fact]
@@ -53,6 +53,7 @@ namespace SharpDotEnv.Tests
                         new TestToken(TokenType.Whitespace, " "),
                         new TestToken(TokenType.Value, "1234"),
                     }
+                    , options => options.IncludingInternalProperties()
                 );
         }
 
@@ -85,7 +86,7 @@ namespace SharpDotEnv.Tests
                 new TestToken(TokenType.Value, "2"),
             };
 
-            readTokens.Should().BeEquivalentTo(expectedTokens);
+            readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
         }
 
         [Fact]
@@ -127,7 +128,7 @@ namespace SharpDotEnv.Tests
                 readTokens.Add(TestToken.From(tok));
             }
 
-            readTokens.Should().BeEquivalentTo(expectedTokens);
+            readTokens.Should().BeEquivalentTo(expectedTokens, options => options.IncludingInternalProperties());
         }
     }
 }

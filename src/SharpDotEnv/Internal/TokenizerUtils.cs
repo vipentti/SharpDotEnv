@@ -2,6 +2,8 @@
 // Distributed under the MIT License.
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
+using System.Globalization;
+
 namespace SharpDotEnv.Internal;
 
 internal static class TokenizerUtils
@@ -16,5 +18,5 @@ internal static class TokenizerUtils
 
     public static bool IsNotEol(char ch) => !IsEol(ch);
 
-    public static string GetEscapeSequence(char c) => "\\u" + ((int)c).ToString("X4");
+    public static string GetEscapeSequence(char c) => "\\u" + ((int)c).ToString("X4", CultureInfo.InvariantCulture);
 }

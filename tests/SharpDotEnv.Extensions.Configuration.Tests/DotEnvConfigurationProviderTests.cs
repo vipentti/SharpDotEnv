@@ -2,16 +2,16 @@
 // Distributed under the MIT License.
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
+using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace SharpDotEnv.Extensions.Configuration.Tests;
 
 public class DotEnvConfigurationProviderTests
 {
-    private static ConfigurationProvider GetDotEnvProvider(string env, string? prefix = null)
+    private static DotEnvConfigurationProvider GetDotEnvProvider(string env, string? prefix = null)
     {
         var provider = new DotEnvConfigurationProvider(
             new DotEnvConfigurationSource() { Prefix = prefix }
@@ -61,6 +61,7 @@ public class DotEnvConfigurationProviderTests
     }
 
     [Fact]
+#pragma warning disable CA1307
     public void Supports_MultilineValues()
     {
         var env = """
@@ -82,4 +83,5 @@ public class DotEnvConfigurationProviderTests
                 """.Replace("\r\n", "\n")
             );
     }
+#pragma warning restore CA1307
 }

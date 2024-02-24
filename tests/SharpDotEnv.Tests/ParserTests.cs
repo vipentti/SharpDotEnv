@@ -3,6 +3,7 @@
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
 using FluentAssertions;
+using SharpDotEnv.Exceptions;
 using Xunit;
 
 namespace SharpDotEnv.Tests
@@ -45,6 +46,32 @@ namespace SharpDotEnv.Tests
         {
             var parsed = DotEnv.Parse(input);
             parsed.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void Should_throw_ParseException_when_KeyToken_IsNotKey()
+        {
+            const string env = """
+            = hello
+            """;
+
+            var act = () => DotEnv.Parse(env);
+
+            act.Should().ThrowExactly<DotEnvParseException>()
+                .WithMessage("Expected key. Got 'Value='hello''");
+        }
+
+        [Fact]
+        public void Should_throw_ParseException_when_ValueToken_IsEof()
+        {
+            const string env = """
+            hello
+            """;
+
+            var act = () => DotEnv.Parse(env);
+
+            act.Should().ThrowExactly<DotEnvParseException>()
+                .WithMessage("Expected value for key: 'hello'");
         }
     }
 }

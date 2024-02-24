@@ -24,7 +24,7 @@ public static class TestUtils
     public static IFileProvider StringToFileProvider(this string value) =>
         new TestFileProvider(value);
 
-    private class TestFileProvider : IFileProvider
+    private sealed class TestFileProvider : IFileProvider
     {
         public string Data { get; }
 
@@ -41,7 +41,7 @@ public static class TestUtils
         public IChangeToken Watch(string filter) => throw new NotImplementedException();
     }
 
-    private class TestFile : IFileInfo
+    private sealed class TestFile : IFileInfo
     {
         public string Data { get; }
 

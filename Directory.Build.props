@@ -13,6 +13,10 @@
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
         <WarnOnPackingNonPackableProject>true</WarnOnPackingNonPackableProject>
+
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <AnalysisMode>All</AnalysisMode>
     </PropertyGroup>
 
     <!-- Packaging -->

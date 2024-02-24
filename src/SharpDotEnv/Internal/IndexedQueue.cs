@@ -88,7 +88,7 @@ internal class IndexedQueue<T> : IReadOnlyList<T>
     {
         if (_len == 0)
         {
-            throw new IndexOutOfRangeException("IndexedQueue is empty.");
+            throw new InvalidOperationException("IndexedQueue is empty.");
         }
     }
 

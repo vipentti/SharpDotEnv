@@ -167,10 +167,7 @@ public static class DotEnvConfigurationExtensions
         bool reloadOnChange
     )
     {
-        if (builder == null)
-        {
-            throw new ArgumentNullException(nameof(builder));
-        }
+        SharpDotEnv.Internal.ThrowHelpers.ThrowIfNull(builder);
 
         if (string.IsNullOrEmpty(path))
         {
@@ -197,7 +194,12 @@ public static class DotEnvConfigurationExtensions
     public static IConfigurationBuilder AddDotEnvFile(
         this IConfigurationBuilder builder,
         Action<DotEnvConfigurationSource> configureSource
-    ) => builder.Add(configureSource);
+    )
+    {
+        SharpDotEnv.Internal.ThrowHelpers.ThrowIfNull(builder);
+
+        return builder.Add(configureSource);
+    }
 
     /// <summary>
     /// Adds a dotenv configuration source to <paramref name="builder"/>.
@@ -223,10 +225,7 @@ public static class DotEnvConfigurationExtensions
         string? prefix
     )
     {
-        if (builder == null)
-        {
-            throw new ArgumentNullException(nameof(builder));
-        }
+        SharpDotEnv.Internal.ThrowHelpers.ThrowIfNull(builder);
 
         return builder.Add<DotEnvStreamConfigurationSource>(src =>
         {
