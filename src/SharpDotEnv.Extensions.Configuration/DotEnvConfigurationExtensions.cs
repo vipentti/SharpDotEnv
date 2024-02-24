@@ -193,7 +193,7 @@ public static class DotEnvConfigurationExtensions
     /// <returns>The <see cref="IConfigurationBuilder"/>.</returns>
     public static IConfigurationBuilder AddDotEnvFile(
         this IConfigurationBuilder builder,
-        Action<DotEnvConfigurationSource> configureSource
+        Action<DotEnvConfigurationSource>? configureSource
     )
     {
         SharpDotEnv.Internal.ThrowHelpers.ThrowIfNull(builder);

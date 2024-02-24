@@ -20,7 +20,7 @@ public class DotEnvParseException : Exception
     /// Initialize new instance with the specified error message
     /// </summary>
     /// <param name="message">The error message</param>
-    public DotEnvParseException(string message)
+    public DotEnvParseException(string? message)
         : base(message) { }
 
     /// <summary>
@@ -28,6 +28,6 @@ public class DotEnvParseException : Exception
     /// </summary>
     /// <param name="message">The error message</param>
     /// <param name="innerException">The inner exception</param>
-    public DotEnvParseException(string message, Exception innerException)
+    public DotEnvParseException(string? message, Exception? innerException)
         : base(message, innerException) { }
 }
