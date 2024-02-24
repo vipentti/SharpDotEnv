@@ -32,11 +32,7 @@ public class ParserTests
         empty=
         not-empty= not-empty-value works quite well
         ",
-            new DotEnv()
-            {
-                { "empty", "" },
-                { "not-empty", "not-empty-value works quite well" },
-            }
+            new DotEnv() { { "empty", "" }, { "not-empty", "not-empty-value works quite well" }, }
         },
     };
 
@@ -52,12 +48,13 @@ public class ParserTests
     public void Should_throw_ParseException_when_KeyToken_IsNotKey()
     {
         const string env = """
-        = hello
-        """;
+            = hello
+            """;
 
         var act = () => DotEnv.Parse(env);
 
-        act.Should().ThrowExactly<DotEnvParseException>()
+        act.Should()
+            .ThrowExactly<DotEnvParseException>()
             .WithMessage("Expected key. Got 'Value='hello''");
     }
 
@@ -65,12 +62,13 @@ public class ParserTests
     public void Should_throw_ParseException_when_ValueToken_IsEof()
     {
         const string env = """
-        hello
-        """;
+            hello
+            """;
 
         var act = () => DotEnv.Parse(env);
 
-        act.Should().ThrowExactly<DotEnvParseException>()
+        act.Should()
+            .ThrowExactly<DotEnvParseException>()
             .WithMessage("Expected value for key: 'hello'");
     }
 }

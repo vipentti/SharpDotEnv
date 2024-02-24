@@ -32,10 +32,7 @@ public class ReadEnvFromEnvTest
         }
     }
 
-    public static readonly TheoryData<string, string> ParseCases = new TheoryData<
-        string,
-        string
-    >()
+    public static readonly TheoryData<string, string> ParseCases = new TheoryData<string, string>()
     {
         { "AFTER_LINE", "after_line" },
         { "EMPTY", "" },

@@ -7,7 +7,11 @@ using System.Globalization;
 
 namespace SharpDotEnv.Internal;
 
-[SuppressMessage("Design", "CA1863:Cache a 'CompositeFormat' for repeated use in this formatting operation", Justification = "Not all current TargetFrameworks support it.")]
+[SuppressMessage(
+    "Design",
+    "CA1863:Cache a 'CompositeFormat' for repeated use in this formatting operation",
+    Justification = "Not all current TargetFrameworks support it."
+)]
 internal static class Strings
 {
     public const string Error_ExpectedKey = "Expected key. Got '{0}'";

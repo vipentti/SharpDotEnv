@@ -2,11 +2,11 @@
 // Distributed under the MIT License.
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
+using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using SharpDotEnv.Exceptions;
-using System;
-using System.Runtime.CompilerServices;
 
 namespace SharpDotEnv.Internal;
 
@@ -71,7 +71,9 @@ internal static class Parser
         var value = valueToken.Value;
 
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-        value = value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace("\r", "\n", StringComparison.Ordinal);
+        value = value
+            .Replace("\r\n", "\n", StringComparison.Ordinal)
+            .Replace("\r", "\n", StringComparison.Ordinal);
 #else
         value = value.Replace("\r\n", "\n").Replace("\r", "\n");
 #endif
@@ -79,7 +81,9 @@ internal static class Parser
         if (valueToken.Type == TokenType.DoubleQuoteValue)
         {
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
-            value = value.Replace("\\n", "\n", StringComparison.Ordinal).Replace("\\r", "\r", StringComparison.Ordinal);
+            value = value
+                .Replace("\\n", "\n", StringComparison.Ordinal)
+                .Replace("\\r", "\r", StringComparison.Ordinal);
 #else
             value = value.Replace("\\n", "\n").Replace("\\r", "\r");
 #endif

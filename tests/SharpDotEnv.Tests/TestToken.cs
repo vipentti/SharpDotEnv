@@ -19,8 +19,7 @@ public readonly record struct TestToken
 
     public override string ToString() => $"{Type}='{Value}'";
 
-    internal static TestToken From(SpanToken tok) =>
-        new TestToken(tok.Type, tok.Value.ToString());
+    internal static TestToken From(SpanToken tok) => new TestToken(tok.Type, tok.Value.ToString());
 
     internal static TestToken From(StreamToken tok) => new TestToken(tok.Type, tok.Value);
 }
