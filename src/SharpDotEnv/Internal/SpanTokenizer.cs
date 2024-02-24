@@ -8,17 +8,10 @@ using System;
 using System.Diagnostics;
 using static SharpDotEnv.Internal.TokenizerUtils;
 
-internal ref struct SpanTokenizer
+internal readonly ref struct SpanTokenizer
 {
     private readonly ReadOnlySpan<char> _input;
-    private LexMode _lexMode;
-    private int _position;
-    private int _line;
-    private int _column;
-    private int _steps;
-    private int _start;
-    private readonly bool _skipComments;
-    private readonly bool _skipWhitespace;
+    private readonly TokenizerState _state;
 
     public SpanTokenizer(string input, bool skipComments = false, bool skipWhitespace = false)
         : this(input.AsSpan(), skipComments, skipWhitespace) { }
@@ -29,31 +22,24 @@ internal ref struct SpanTokenizer
         bool skipWhitespace = false
     )
     {
-        _position = 0;
-        _line = 0;
-        _column = 0;
-        _steps = 0;
-        _start = 0;
-        _lexMode = LexMode.Key;
         _input = input;
-        _skipComments = skipComments;
-        _skipWhitespace = skipWhitespace;
+        _state = new(skipComments, skipWhitespace);
     }
 
     public readonly char Current => Peek();
 
-    public readonly bool IsDone => _position >= _input.Length;
+    public readonly bool IsDone => _state.Position >= _input.Length;
 
     public bool MoveNext(out SpanToken token)
     {
         while (MoveNextImpl(out token))
         {
-            if (_skipComments && token.IsComment())
+            if (_state.SkipComments && token.IsComment())
             {
                 continue;
             }
 
-            if (_skipWhitespace && token.IsWhitespace())
+            if (_state.SkipWhitespace && token.IsWhitespace())
             {
                 continue;
             }
@@ -66,13 +52,13 @@ internal ref struct SpanTokenizer
 
     public readonly char Peek()
     {
-        return _position < _input.Length ? _input[_position] : NullChar;
+        return _state.Position < _input.Length ? _input[_state.Position] : NullChar;
     }
 
     public char Read()
     {
         var ch = Peek();
-        _position++;
+        _state.AdvancePosition();
         return ch;
     }
 
@@ -83,25 +69,22 @@ internal ref struct SpanTokenizer
         var result = Peek() switch
         {
             '#' => LexComment(),
-            var _ when _lexMode == LexMode.Value => LexValue(),
-            var it when _lexMode == LexMode.Key && IsValidKeyChar(it) => LexKey(),
+            var _ when _state.LexMode == LexMode.Value => LexValue(),
+            var it when _state.LexMode == LexMode.Key && IsValidKeyChar(it) => LexKey(),
             var it when char.IsWhiteSpace(it) => LexWhitespace(),
             '=' => LexEquals(),
             NullChar => default,
-            var it
-                => throw new NotImplementedException(
-                    $"Char: '{it}' at {_line}:{_column} {_position}"
-                )
+            var it => throw _state.CreateNotSupportedCharacterException(it),
         };
 
         token = result;
         return token.Type != TokenType.Eof;
     }
 
-    private SpanToken LexEquals()
+    private readonly SpanToken LexEquals()
     {
         Bump();
-        _lexMode = LexMode.Value;
+        _state.LexMode = LexMode.Value;
         return Emit(TokenType.Equals);
     }
 
@@ -117,7 +100,7 @@ internal ref struct SpanTokenizer
 
         if (result.Type != TokenType.Whitespace)
         {
-            _lexMode = LexMode.Key;
+            _state.LexMode = LexMode.Key;
         }
 
         return result;
@@ -150,7 +133,7 @@ internal ref struct SpanTokenizer
 
         ResetStart();
 
-        int start = _position;
+        var start = _state.Position;
 
         while (Peek() is char ch && !IsNul(ch))
         {
@@ -165,19 +148,23 @@ internal ref struct SpanTokenizer
             else
             {
                 foundStartOfValue = true;
-                _position++;
+                _state.Position++;
             }
         }
 
-        if (_position > start)
+        if (_state.Position > start)
         {
-            int lastCharIndex = LastIndexOf(it => !char.IsWhiteSpace(it), start, _position - 1);
+            var lastCharIndex = LastIndexOf(
+                it => !char.IsWhiteSpace(it),
+                start,
+                _state.Position - 1
+            );
 
-            _position = start;
+            _state.Position = start;
 
             Debug.Assert(lastCharIndex > -1, "Expected at least one character");
 
-            for (int i = start; i <= lastCharIndex; ++i)
+            for (var i = start; i <= lastCharIndex; ++i)
             {
                 Bump();
             }
@@ -189,7 +176,7 @@ internal ref struct SpanTokenizer
     private readonly int LastIndexOf(Func<char, bool> pred, int start = 0, int? end = null)
     {
         end ??= _input.Length - 1;
-        for (int i = end.Value; i >= start; --i)
+        for (var i = end.Value; i >= start; --i)
         {
             if (pred(_input[i]))
             {
@@ -221,25 +208,24 @@ internal ref struct SpanTokenizer
 
     private void EatAssert(char ch)
     {
-        Debug.Assert(
-            IsAt(ch),
-            $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'"
-        );
+        if (!IsAt(ch))
+        {
+            _state.ThrowExpectedToConsumeException(ch, Current);
+        }
         Bump();
     }
 
-    private SpanToken Emit(TokenType type)
+    private readonly SpanToken Emit(TokenType type)
     {
-        var token = new SpanToken(type, _input.Slice(_start, _position - _start));
+        var token = new SpanToken(type, _input.Slice(_state.Start, _state.Position - _state.Start));
         ResetStart();
         return token;
     }
 
-    private void Bump()
+    private readonly void Bump()
     {
         CheckStep();
-        _position++;
-        _column++;
+        _state.BumpPositionAndColumn();
 
         if (Peek() == '\n')
         {
@@ -247,15 +233,14 @@ internal ref struct SpanTokenizer
         }
     }
 
-    private void BumpLine()
+    private readonly void BumpLine()
     {
-        _line++;
-        _column = 0;
+        _state.BumpLine();
     }
 
-    private void ResetStart()
+    private readonly void ResetStart()
     {
-        _start = _position;
+        _state.ResetStart();
     }
 
     private void AcceptRun(Func<char, bool> pred)
@@ -266,15 +251,14 @@ internal ref struct SpanTokenizer
         }
     }
 
-    private bool IsAt(char ch)
+    private readonly bool IsAt(char ch)
     {
         CheckStep();
         return Current == ch;
     }
 
-    private void CheckStep()
+    private readonly void CheckStep()
     {
-        _steps++;
-        Debug.Assert(_steps < 1_000_000, $"Parser seems stuck at '{Current}'");
+        _state.CheckStep(Current);
     }
 }

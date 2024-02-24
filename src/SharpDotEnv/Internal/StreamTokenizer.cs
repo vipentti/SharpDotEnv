@@ -10,18 +10,12 @@ using static SharpDotEnv.Internal.TokenizerUtils;
 
 namespace SharpDotEnv.Internal;
 
-internal struct StreamTokenizer
+internal class StreamTokenizer
 {
     private readonly StreamReader _stream;
     private readonly StringBuilder _currentValueBuilder;
     private readonly IndexedQueue<char> _buffer;
-    private LexMode _lexMode;
-    private int _position;
-    private int _line;
-    private int _column;
-    private int _steps;
-    private readonly bool _skipComments;
-    private readonly bool _skipWhitespace;
+    private readonly TokenizerState _state;
 
     public StreamTokenizer(
         StreamReader stream,
@@ -31,21 +25,15 @@ internal struct StreamTokenizer
     {
         _currentValueBuilder = new StringBuilder();
         _buffer = new IndexedQueue<char>();
-        _position = 0;
-        _line = 0;
-        _column = 0;
-        _steps = 0;
-        _lexMode = LexMode.Key;
         _stream = stream;
-        _skipComments = skipComments;
-        _skipWhitespace = skipWhitespace;
+        _state = new(skipComments, skipWhitespace);
     }
 
-    public readonly bool IsDone => _stream.EndOfStream;
+    public bool IsDone => _stream.EndOfStream;
 
-    public readonly char Current => Peek();
+    public char Current => Peek();
 
-    public readonly char Peek()
+    public char Peek()
     {
         if (_buffer.TryPeek(out var read))
         {
@@ -55,19 +43,19 @@ internal struct StreamTokenizer
         return StreamPeek();
     }
 
-    private readonly char StreamPeek()
+    private char StreamPeek()
     {
         var next = _stream.Peek();
         return next != -1 ? (char)next : NullChar;
     }
 
-    private readonly char StreamRead()
+    private char StreamRead()
     {
         var next = _stream.Read();
         return next != -1 ? (char)next : NullChar;
     }
 
-    private readonly char Next()
+    private char Next()
     {
         if (_buffer.TryDequeue(out var result))
         {
@@ -81,12 +69,12 @@ internal struct StreamTokenizer
     {
         while (MoveNextImpl(out token))
         {
-            if (_skipComments && token.IsComment())
+            if (_state.SkipComments && token.IsComment())
             {
                 continue;
             }
 
-            if (_skipWhitespace && token.IsWhitespace())
+            if (_state.SkipWhitespace && token.IsWhitespace())
             {
                 continue;
             }
@@ -108,10 +96,10 @@ internal struct StreamTokenizer
             case '#':
                 token = LexComment();
                 break;
-            case var _ when _lexMode == LexMode.Value:
+            case var _ when _state.LexMode == LexMode.Value:
                 token = LexValue();
                 break;
-            case var it when _lexMode == LexMode.Key && IsValidKeyChar(it):
+            case var it when _state.LexMode == LexMode.Key && IsValidKeyChar(it):
                 token = LexKey();
                 break;
             case var it when char.IsWhiteSpace(it):
@@ -123,9 +111,8 @@ internal struct StreamTokenizer
             case NullChar:
                 break;
             default:
-                throw new NotImplementedException(
-                    $"Char: '{Peek()}' at {_line}:{_column} {_position}"
-                );
+                _state.ThrowNotSupportedCharacterException(Peek());
+                break;
         }
 
         return token.Type != TokenType.Eof;
@@ -134,7 +121,7 @@ internal struct StreamTokenizer
     private StreamToken LexEquals()
     {
         Bump();
-        _lexMode = LexMode.Value;
+        _state.LexMode = LexMode.Value;
         return Emit(TokenType.Equals);
     }
 
@@ -160,7 +147,7 @@ internal struct StreamTokenizer
 
         if (result.Type != TokenType.Whitespace)
         {
-            _lexMode = LexMode.Key;
+            _state.LexMode = LexMode.Key;
         }
 
         return result;
@@ -245,30 +232,29 @@ internal struct StreamTokenizer
         return Emit(TokenType.Whitespace);
     }
 
-    private readonly StreamToken Emit(TokenType type)
+    private StreamToken Emit(TokenType type)
     {
         var token = new StreamToken(type, _currentValueBuilder.ToString());
         ResetStart();
         return token;
     }
 
-    private readonly void ResetStart()
+    private void ResetStart()
     {
         _currentValueBuilder.Clear();
     }
 
     private void CheckStep()
     {
-        _steps++;
-        Debug.Assert(_steps < 1_000_000, $"Parser seems stuck at '{Current}'");
+        _state.CheckStep(Current);
     }
 
     private void EatAssert(char ch)
     {
-        Debug.Assert(
-            IsAt(ch),
-            $"Expected to consume '{GetEscapeSequence(ch)}' at {_line}:{_column} pos: {_position} but found '{GetEscapeSequence(Current)}'"
-        );
+        if (!IsAt(ch))
+        {
+            _state.ThrowExpectedToConsumeException(ch, Current);
+        }
         Bump();
     }
 
@@ -283,8 +269,7 @@ internal struct StreamTokenizer
             _currentValueBuilder.Append(next);
         }
 
-        _position++;
-        _column++;
+        _state.BumpPositionAndColumn();
 
         if (Peek() == '\n')
         {
@@ -294,8 +279,7 @@ internal struct StreamTokenizer
 
     private void BumpLine()
     {
-        _line++;
-        _column = 0;
+        _state.BumpLine();
     }
 
     private void AcceptRun(Func<char, bool> pred)
