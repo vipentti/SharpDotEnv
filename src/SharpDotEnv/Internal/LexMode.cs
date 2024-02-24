@@ -2,11 +2,10 @@
 // Distributed under the MIT License.
 // https://github.com/vipentti/SharpDotEnv/blob/main/LICENSE.md
 
-namespace SharpDotEnv.Internal
+namespace SharpDotEnv.Internal;
+
+internal enum LexMode
 {
-    internal enum LexMode
-    {
-        Key,
-        Value,
-    }
+    Key,
+    Value,
 }
