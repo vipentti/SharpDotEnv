@@ -29,10 +29,10 @@ public class DotEnvConfigurationSource : FileConfigurationSource
     /// If no file provider has been set: For absolute Path, this will creates a <see cref="DotEnvPhysicalFileProvider"/>
     /// for the nearest existing directory. Otherwise create an instance of <see cref="DotEnvPhysicalFileProvider"/> set to <see cref="AppContext.BaseDirectory"/>
     /// </summary>
-    public void ResolveFileProvider(IFileProvider baseProvider)
+    public void ResolveFileProvider(IFileProvider? baseProvider)
     {
         if (
-            FileProvider == null
+            FileProvider is null
             && !string.IsNullOrEmpty(Path)
             && System.IO.Path.IsPathRooted(Path)
         )
@@ -46,7 +46,7 @@ public class DotEnvConfigurationSource : FileConfigurationSource
                 : AppContext.BaseDirectory;
             FileProvider = new DotEnvPhysicalFileProvider(root ?? string.Empty);
         }
-        else if (FileProvider == null)
+        else if (FileProvider is null)
         {
             var root = baseProvider is PhysicalFileProvider physical
                 ? physical.Root

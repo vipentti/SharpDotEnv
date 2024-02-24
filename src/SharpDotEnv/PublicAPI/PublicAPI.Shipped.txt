@@ -1,0 +1,43 @@
+#nullable enable
+SharpDotEnv.DotEnv
+SharpDotEnv.DotEnv.DotEnv() -> void
+SharpDotEnv.DotEnv.DotEnv(int capacity) -> void
+SharpDotEnv.DotEnv.DotEnv(System.Collections.Generic.IDictionary<string!, string!>! dictionary) -> void
+SharpDotEnv.DotEnv.SetEnvironmentVariables(bool overrideExisting) -> SharpDotEnv.DotEnv!
+SharpDotEnv.DotEnvConfigOptions
+SharpDotEnv.DotEnvConfigOptions.Debug.get -> bool
+SharpDotEnv.DotEnvConfigOptions.Debug.set -> void
+SharpDotEnv.DotEnvConfigOptions.DebugLogger.get -> System.Action<string!>!
+SharpDotEnv.DotEnvConfigOptions.DebugLogger.set -> void
+SharpDotEnv.DotEnvConfigOptions.DotEnvConfigOptions() -> void
+SharpDotEnv.DotEnvConfigOptions.DotEnvConfigOptions(SharpDotEnv.DotEnvConfigOptions! options) -> void
+SharpDotEnv.DotEnvConfigOptions.Encoding.get -> System.Text.Encoding!
+SharpDotEnv.DotEnvConfigOptions.Encoding.set -> void
+SharpDotEnv.DotEnvConfigOptions.IgnoreExceptions.get -> bool
+SharpDotEnv.DotEnvConfigOptions.IgnoreExceptions.set -> void
+SharpDotEnv.DotEnvConfigOptions.Override.get -> bool
+SharpDotEnv.DotEnvConfigOptions.Override.set -> void
+SharpDotEnv.DotEnvConfigOptions.Path.get -> string!
+SharpDotEnv.DotEnvConfigOptions.Path.set -> void
+SharpDotEnv.DotEnvConfigOptions.WithDebug() -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithDebug(bool debug) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithDebugLogger(System.Action<string!>! logger) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithEncoding(System.Text.Encoding! encoding) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithIgnoreExceptions(bool ignore) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithOverride(bool value) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.DotEnvConfigOptions.WithPath(string! path) -> SharpDotEnv.DotEnvConfigOptions!
+SharpDotEnv.Exceptions.DotEnvParseException
+SharpDotEnv.Exceptions.DotEnvParseException.DotEnvParseException() -> void
+SharpDotEnv.Exceptions.DotEnvParseException.DotEnvParseException(string? message) -> void
+SharpDotEnv.Exceptions.DotEnvParseException.DotEnvParseException(string? message, System.Exception? innerException) -> void
+static readonly SharpDotEnv.DotEnv.Empty -> SharpDotEnv.DotEnv!
+static readonly SharpDotEnv.DotEnvConfigOptions.DefaultDebugLogger -> System.Action<string!>!
+static readonly SharpDotEnv.DotEnvConfigOptions.DefaultOptions -> SharpDotEnv.DotEnvConfigOptions!
+static SharpDotEnv.DotEnv.Config() -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.Config(SharpDotEnv.DotEnvConfigOptions! options) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.Parse(SharpDotEnv.DotEnvConfigOptions! options) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.Parse(string! env) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.Parse(System.IO.Stream! stream) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.Parse(System.IO.Stream! stream, System.Text.Encoding! encoding) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.ParseFile(string! filePath) -> SharpDotEnv.DotEnv!
+static SharpDotEnv.DotEnv.ParseFile(string! filePath, System.Text.Encoding? encoding) -> SharpDotEnv.DotEnv!
