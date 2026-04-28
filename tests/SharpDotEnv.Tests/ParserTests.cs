@@ -25,14 +25,14 @@ public class ParserTests
             @"
         empty=
         ",
-            new DotEnv() { { "empty", "" }, }
+            new DotEnv() { { "empty", "" } }
         },
         {
             @"
         empty=
         not-empty= not-empty-value works quite well
         ",
-            new DotEnv() { { "empty", "" }, { "not-empty", "not-empty-value works quite well" }, }
+            new DotEnv() { { "empty", "" }, { "not-empty", "not-empty-value works quite well" } }
         },
     };
 
