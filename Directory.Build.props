@@ -30,7 +30,7 @@
     <IsPublishable>false</IsPublishable>
 
     <Authors>Ville Penttinen</Authors>
-    <Copyright>Copyright © 2023-2024 Ville Penttinen</Copyright>
+    <Copyright>Copyright © 2023-2026 Ville Penttinen</Copyright>
     <PackageProjectUrl>https://github.com/vipentti/SharpDotEnv</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/vipentti/SharpDotEnv</RepositoryUrl>
